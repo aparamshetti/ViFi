@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Mar  11 21:40:21 2019
+
+@author: Sayed Inamdar
+"""
+
 import cv2
 import math
 import os
@@ -84,7 +91,7 @@ class Capture_Snapshots:
             frames_to_be_captured=self.frame_numbers_to_be_captured_one_frame_five_sec(video_length,frame_rate,3)
             
         
-        ### Following logic is generate the ranbdom number to prepend
+        ### Following logic is generate the random number to prepend
         random_number=[]
         for i in range(1,len(frames_to_be_captured)):
             random_number.append(i)
@@ -119,7 +126,7 @@ class Capture_Snapshots:
             if fnmatch.fnmatch(file, pattern):
                 all_videos.append(file)
         
-        ### Following logic is generate the ranbdom number to prepend
+        ### Following logic is generate the random number to prepend
         random_number=[]
         for i in range(1,len(list_of_all_files)):
             random_number.append(i)
