@@ -13,7 +13,7 @@ import random
 
 class Capture_Snapshots:
     
-    def __init__(self,per_sec_frame_flag=True,input_path='D:/youtube/',output_path='D:/youtube/Snapshot_1_3sec/'):
+    def __init__(self,per_sec_frame_flag=True,input_path='D:/youtube/',output_path='D:/youtube/Snapshots_1_3_part2/'):
         self.input_path=input_path
         self.output_path=output_path
         self.common_video_snap_name='video'
@@ -93,7 +93,7 @@ class Capture_Snapshots:
         
         ### Following logic is generate the random number to prepend
         random_number=[]
-        for i in range(1,len(frames_to_be_captured)):
+        for i in range(0,len(frames_to_be_captured)):
             random_number.append(i)
         
         random.shuffle(random_number)
@@ -128,7 +128,7 @@ class Capture_Snapshots:
         
         ### Following logic is generate the random number to prepend
         random_number=[]
-        for i in range(1,len(list_of_all_files)):
+        for i in range(0,len(list_of_all_files)):
             random_number.append(i)
         
         random.shuffle(random_number)
