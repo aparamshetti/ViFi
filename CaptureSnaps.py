@@ -42,6 +42,34 @@ class Capture_Snapshots:
                 resized_image = cv2.resize(current_frame, (self.output_shape1, self.output_shape2))
                 cv2.imwrite(file_name,resized_image)
         video.release()
+        
+    def capture_all_frames(self,video_name,inp_path,out_path):
+        video = cv2.VideoCapture(inp_path+video_name) 
+        frame_rate=video.get(5) #captures the frame rate
+        print(f'{video_name} has {frame_rate} per second!')
+        
+        video = cv2.VideoCapture(inp_path+video_name) 
+        while (video.isOpened()):
+            frame_id=video.get(1) # captures the current frame id
+            return_value, current_frame = video.read()
+            
+            #if video is over exit
+            if(return_value != True):
+                break
+            file_name=f'{out_path}{video_name}_{int(frame_id)}.jpg'
+            resized_image = cv2.resize(current_frame, (self.output_shape1, self.output_shape2))
+            cv2.imwrite(file_name,resized_image)
+        
+        video.release()
+    
+    def get_vid_length(self,url):
+        video = cv2.VideoCapture(self.input_path+url) 
+        
+        '''Setting video length feature on'''
+        video.set(cv2.CAP_PROP_POS_AVI_RATIO,1)
+        '''extract vido length in seconds'''
+        video_length=video.get(cv2.CAP_PROP_POS_MSEC)/1000
+        return video_length
     
     '''Returns the list fo frames numbers to be captured ************** RESTRICTED TO THREE FRAMES PER SECOND CURRENTLY '''
     def frame_numbers_to_be_captured(self,vid_length,frame_rate):
@@ -143,6 +171,6 @@ class Capture_Snapshots:
 if __name__ == '__main__':
     ##Capture_Snapshots classes takes as input input path and output path and per_sec_frame_flag       
     '''per_sec_frame_flag : If it desired to capture atleast one frame sec then this flag is true else if desired to capture a frame for 5sec set False'''
-    _capture_snapshots=Capture_Snapshots(per_sec_frame_flag=False)
+    _capture_snapshots=Capture_Snapshots(per_sec_frame_flag=False,input_path='D:/youtube/vid/',output_path='D:/youtube/')
     _capture_snapshots.capture_snaps_all_videos()       
             
