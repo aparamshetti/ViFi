@@ -43,18 +43,11 @@ class TestClass:
         return start_time
             
     
-    def slice_all_video(self):
-        all_videos=[]
-        list_of_all_files = os.listdir(self.input_path)  
-        pattern = "*.mp4"
-        for file in list_of_all_files:  
-            if fnmatch.fnmatch(file, pattern):
-                all_videos.append(file)
-        
+    def slice_all_video(self,video_list):
         # Instatiating CaptureSnaps
         _capture_snapshots=Capture_Snapshots(per_sec_frame_flag=False,input_path=self.input_path,output_path=self.output_path)
         
-        for video_url in all_videos:
+        for video_url in video_list:
             print("\nProcessing video : {}".format(video_url))
             vid_len=_capture_snapshots.get_vid_length(video_url)
             start_time=self.get_random_start_time(vid_len)
@@ -68,7 +61,30 @@ class TestClass:
             
             _capture_snapshots.capture_all_frames(vid_name[0]+self.file_name_appended,inp_path=self.output_path, out_path=new_snap_out_path)
     
+    ##This method generates a list of videos to be tested for 
+    def random_videos_for_testing(self,test_size):
+        list_of_all_files = os.listdir(self.input_path)
+        all_videos=[]
+        pattern = "*.mp4"
+        
+        for file in list_of_all_files:  
+            if fnmatch.fnmatch(file, pattern):
+                all_videos.append(file)
+                
+        picked_videos_numbers=[]
+        
+        if test_size > len(all_videos):
+            test_size=len(all_videos)
+        
+        while len(picked_videos_numbers) <= test_size:
+            num=random.randint(0,len(all_videos))
+            if num not in picked_videos_numbers:
+                picked_videos_numbers.append(num)
+        
+        picked_videos=[ all_videos[vid_num] for vid_num in picked_videos_numbers ]
+        return picked_videos
 
 if __name__ =="__name__":
-    _testing_obj=TestClass(cropped_vid_len=10,inp_path='D:/youtube/',out_path='D:/youtube/sliced/',snap_out_path='D:/youtube/test_snaps/')
-    _testing_obj.slice_all_video()
+    _testing_obj=TestClass(cropped_vid_len=10,inp_path='D:/youtube/already snapped_videos/',out_path='D:/youtube/sliced/',snap_out_path='D:/youtube/test_snaps/')
+    testing_vids=_testing_obj.random_videos_for_testing(10)
+    _testing_obj.slice_all_video(testing_vids)
