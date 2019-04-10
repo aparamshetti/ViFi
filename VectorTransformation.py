@@ -172,14 +172,14 @@ class ConvertToVector:
             else:
                 self.special_num.append(x%(i+1))
         
-        self.special_num = np.array(self.special_num).reshape(1,1131)
+        self.special_num = np.array(self.special_num).reshape(1131,1)
         return True
     
     def finger_print(self):
         self._special_number_generator()
         for i,img in enumerate(self.image_set):
             vec = self._vectorize(img)
-            fp = vec.reshape(1131,1).dot(self.special_num)
+            fp = vec.reshape(1,1131).dot(self.special_num)
             name = img.split('\\')[-1]
             self.inverted_index[name] = vec
             self.fp_index[name] = [fp]
