@@ -9,7 +9,7 @@ from keras import regularizers,initializers
 import glob
 from keras.models import load_model
 import pandas as pd
-
+import pickle
 
 class ConvertToVector:
     def __init__(self,path,file,layer_name="vector_layer",dtype = 'float16'):
@@ -175,17 +175,19 @@ class ConvertToVector:
         self.special_num = np.array(self.special_num).reshape(1131,1)
         return True
     
-    def finger_print(self):
+    def build_index(self):
         self._special_number_generator()
         for i,img in enumerate(self.image_set):
             vec = self._vectorize(img)
             fp = vec.reshape(1,1131).dot(self.special_num)
             name = img.split('\\')[-1]
-            self.inverted_index[name] = vec
-            self.fp_index[name] = [fp]
-            if i % 100 == 0:
-                pd.DataFrame.from_dict(self.inverted_index).to_csv(self._path+"//inverted_index.csv",index=False)
-                pd.DataFrame.from_dict(self.fp_index).to_csv(self._path+"//finger_print.csv",index=False)
+            if int(fp) in self.inverted_index:
+                self.inverted_index[int(fp)].append((name,vec))
+            else:
+                self.inverted_index[int(fp)] = [(name,vec)]            
+            if i % 10 == 0:
+                pickle.dump(self.inverted_index,open(self._path+"//inverted_index.p","wb"))
+                    
             print("Completed: ",i)
 
     def main(self):
@@ -197,7 +199,7 @@ class ConvertToVector:
             #vec._train_model(32)
             vec._train_model(batch_size=64,model_type="convDeconv")
             
-        self.finger_print()
+        self.build_index()
 
 
         
@@ -207,7 +209,7 @@ if __name__ == "__main__":
     file = "Snapshot_1_3sec\\"
     vec = ConvertToVector(path,file)
     vec.main()
-    
+    d = pickle.load(open(path+"//inverted_index.p","rb"))
     
 # =============================================================================
 #     image_set = vec._train_model(32)
