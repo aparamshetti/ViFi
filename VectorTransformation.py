@@ -10,6 +10,7 @@ import glob
 from keras.models import load_model
 import pandas as pd
 import json
+import time
 
 class ConvertToVector:
     def __init__(self,path,file,layer_name="vector_layer",dtype = 'float16'):
@@ -43,8 +44,6 @@ class ConvertToVector:
             train_gen = data_gen.flow_from_directory(self._path,target_size=(640,480),batch_size=batch_size,class_mode='input',shuffle=True,seed = 100)
             
             
-
-        print(len(self.image_set))
         self._model.fit_generator(train_gen, steps_per_epoch = len(self.image_set)//batch_size, epochs = epochs)
         self._model.save("C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\model.h5")
         
@@ -180,12 +179,12 @@ class ConvertToVector:
         self._special_number_generator()
         for i,img in enumerate(self.image_set):
             vec = self._vectorize(img)
-            fp = vec.reshape(1,1131).dot(self.special_num)
+            fp = int(vec.reshape(1,1131).dot(self.special_num))
             name = img.split('\\')[-1]
-            if int(fp) in self.inverted_index:
-                self.inverted_index[int(fp)].append((name,vec.tolist()))
+            if fp in self.inverted_index:
+                self.inverted_index[fp].append((name,vec.tolist()))
             else:
-                self.inverted_index[int(fp)] = [(name,vec.tolist())]            
+                self.inverted_index[fp] = [(name,vec.tolist())]            
             if i % 100 == 0:
                 with open(self._path+"//inverted_index.json", 'w') as f:
                     json.dump(self.inverted_index, f)
@@ -223,8 +222,9 @@ if __name__ == "__main__":
     path = "C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\"
     file = "Snapshot_1_3sec\\"
     vec = ConvertToVector(path,file)
+    start = time.time()
     vec.main()
-    d = pickle.load(open(path+"//inverted_index.p","rb"))
+    print("Takes: ", time.time()-start,"sec")
     
 # =============================================================================
 #     image_set = vec._train_model(32)
