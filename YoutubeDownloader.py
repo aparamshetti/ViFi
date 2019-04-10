@@ -20,13 +20,13 @@ class YoutubeDownloader:
             if 'lyric' in video.title.lower() or 'mashup' in video.title.lower():
                 print("Ignored because its a lyrical video")
                 return
-            if video.length > self.max_vid_length:
+            if int(video.length) > self.max_vid_length:
                 print(f'Ignored because video is too long, name: {video.title}')
                 return
             stream = video.streams.filter(file_extension = "mp4",adaptive=True)
             stream.first().download(self.output_path)
-        except:
-            print(f'Could not downlaod ')
+        except Exception as e:
+            print(f'Could not downlaod {e}')
             
     def download_playlist_video(self,url):
         pl=Playlist(url)
@@ -58,10 +58,10 @@ if __name__=='__main__':
     #playlist_url='https://www.youtube.com/playlist?list=PLNaDy1xRJz8U6FCnP5LZpSgrSGA5lxbJu' #enrique
     #playlist_url='https://www.youtube.com/playlist?list=PLMRKdK25AuPVXH-65dQHkajrQIL_UMJxr'  #Ranbir 
     #playlist_url_bruno='https://www.youtube.com/playlist?list=PLDIoUOhQQPlUAdKrN4Z3FpWujWpuKk-sh'  #bruno mars
-    playlist_url_atif='https://www.youtube.com/playlist?list=PLotMWWn7H-dnMLAU3kQesxzzSL8iVzqYT' #atif aslam
-    playlist_url_ed='https://www.youtube.com/playlist?list=PLaq655wqcKDnUvTOizhqwNCiiF_grL1vh' #ed sheeran
+    #playlist_url_atif='https://www.youtube.com/playlist?list=PLotMWWn7H-dnMLAU3kQesxzzSL8iVzqYT' #atif aslam
+    #playlist_url_ed='https://www.youtube.com/playlist?list=PLaq655wqcKDnUvTOizhqwNCiiF_grL1vh' #ed sheeran
+    playlist_url_one_direction='https://www.youtube.com/playlist?list=PLxdmSpdkY-5LG9ZYDrX3qQq_iqsjfJhx9'
     
     _youtube_downloader=YoutubeDownloader()
-    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_atif)
-    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_ed)
+    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_one_direction)
         
