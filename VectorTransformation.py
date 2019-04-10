@@ -9,7 +9,7 @@ from keras import regularizers,initializers
 import glob
 from keras.models import load_model
 import pandas as pd
-import pickle
+import json
 
 class ConvertToVector:
     def __init__(self,path,file,layer_name="vector_layer",dtype = 'float16'):
@@ -23,6 +23,7 @@ class ConvertToVector:
         self.fib_dict = {}
         self.special_num = []
         self.inverted_index = {}
+        self.master_inverted_index = {}
         self.fp_index = {}
         backend.set_floatx(dtype)
         
@@ -182,14 +183,28 @@ class ConvertToVector:
             fp = vec.reshape(1,1131).dot(self.special_num)
             name = img.split('\\')[-1]
             if int(fp) in self.inverted_index:
-                self.inverted_index[int(fp)].append((name,vec))
+                self.inverted_index[int(fp)].append((name,vec.tolist()))
             else:
-                self.inverted_index[int(fp)] = [(name,vec)]            
-            if i % 10 == 0:
-                pickle.dump(self.inverted_index,open(self._path+"//inverted_index.p","wb"))
+                self.inverted_index[int(fp)] = [(name,vec.tolist())]            
+            if i % 100 == 0:
+                with open(self._path+"//inverted_index.json", 'w') as f:
+                    json.dump(self.inverted_index, f)
+                
                     
             print("Completed: ",i)
-
+            
+    def load_json(self,file_name):
+        with open(file_name) as infile:
+            json_file = json.loads(infile.read())
+        return json.loads(json_file)
+    
+    def load_and_append_mulitple_dicts(self):
+        path = self._path+"\\*.p"
+        file_list = glob.glob(path)
+        for f in file_list:
+            inverted_index = self.load_json(f)
+            self.master_inverted_index = {**self.master_inverted_index,**inverted_index}
+        
     def main(self):
         
         if len(glob.glob(self._path+"\\*.h5")) > 0:
