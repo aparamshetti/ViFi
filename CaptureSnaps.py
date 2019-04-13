@@ -21,7 +21,8 @@ class Capture_Snapshots:
         self.output_shape2=480  #output dimensions second size
         self.no_of_frames_per_sec=3
         '''If it desired to capture atleast one frame sec then this flag is true else if desired to capture a frame for 5sec set False'''
-        self.capture_frames_every_sec=per_sec_frame_flag 
+        self.capture_frames_every_sec=per_sec_frame_flag
+        self._video_dict = {}
      
         
     '''captures consecutive frames from the mili seconds 1,2,3 & 31 32 33'''
@@ -81,9 +82,9 @@ class Capture_Snapshots:
             low_frame_range=high_frame_range+1
             high_frame_range=high_frame_range+int(frame_rate)
             no1, no2, no3 = random.sample(range(low_frame_range, high_frame_range), self.no_of_frames_per_sec)
-            frames_to_be_captured.append(no1[0])
-            frames_to_be_captured.append(no2[0])
-            frames_to_be_captured.append(no3[0])
+            frames_to_be_captured.append(no1)
+            frames_to_be_captured.append(no2)
+            frames_to_be_captured.append(no3)
         
         return frames_to_be_captured
     
@@ -100,7 +101,8 @@ class Capture_Snapshots:
             
         return frames_to_be_captured
     
-    def capture_snaps_of_video(self,url,video_name):
+    def capture_snaps_of_video(self, url, video_number):
+        self._video_dict[video_number] = url
         video = cv2.VideoCapture(self.input_path+url) 
         frame_rate=video.get(5) #captures the frame rate
         
@@ -139,7 +141,7 @@ class Capture_Snapshots:
                 break
             
             if (frame_id in frames_to_be_captured):
-                file_name=f'{self.output_path}{random_number[ran_count]}{video_name}_{int(frame_id)}.jpg'
+                file_name= f'{self.output_path}{video_number:04}_{int(frame_id)}.jpg'
                 resized_image = cv2.resize(current_frame, (self.output_shape1, self.output_shape2))
                 cv2.imwrite(file_name,resized_image)
                 ran_count+=1
@@ -165,12 +167,20 @@ class Capture_Snapshots:
         
         for counter,video_url in enumerate(all_videos,start=1):
             print("Processing video number : {} \n video name : {}".format(counter,video_url))
-            self.capture_snaps_of_video(video_url, f'{random_number[ran_count]}_{self.common_video_snap_name}_{counter}')
+            self.capture_snaps_of_video(video_url, counter)
             ran_count+=1
+
+        with open('resources/video_dict.json', 'w') as f:
+            import json
+            d = json.dumps(self._video_dict)
+            print(d)
+            f.write(d)
+
 
 if __name__ == '__main__':
     ##Capture_Snapshots classes takes as input input path and output path and per_sec_frame_flag       
     '''per_sec_frame_flag : If it desired to capture atleast one frame sec then this flag is true else if desired to capture a frame for 5sec set False'''
-    _capture_snapshots=Capture_Snapshots(per_sec_frame_flag=False,input_path='D:/youtube/vid/',output_path='D:/youtube/')
+    base_url = './data'
+    _capture_snapshots=Capture_Snapshots(per_sec_frame_flag=True,input_path=base_url + '/videos/',
+                                         output_path=base_url + '/snapshots/')
     _capture_snapshots.capture_snaps_all_videos()       
-            

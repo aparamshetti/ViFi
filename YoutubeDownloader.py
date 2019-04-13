@@ -61,7 +61,7 @@ if __name__=='__main__':
     #playlist_url_atif='https://www.youtube.com/playlist?list=PLotMWWn7H-dnMLAU3kQesxzzSL8iVzqYT' #atif aslam
     #playlist_url_ed='https://www.youtube.com/playlist?list=PLaq655wqcKDnUvTOizhqwNCiiF_grL1vh' #ed sheeran
     playlist_url_one_direction='https://www.youtube.com/playlist?list=PLxdmSpdkY-5LG9ZYDrX3qQq_iqsjfJhx9'
-    
-    _youtube_downloader=YoutubeDownloader()
+
+    _youtube_downloader=YoutubeDownloader(output_path='./data/videos')
     _youtube_downloader.download_playlist_videos_best_quality(playlist_url_one_direction)
-        
+

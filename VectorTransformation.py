@@ -89,7 +89,7 @@ class ConvertToVector:
 # =============================================================================
             
     def _get_image_names(self):
-        path = self._path+"\\"+self._file + "\\Images\\*.jpg"
+        path = self._path + "\\" + self._file + "\\*.jpg"
         file_list = glob.glob(path)
         return file_list
     
@@ -151,7 +151,7 @@ class ConvertToVector:
         intermediate_output = intermediate_layer_model.predict(cv2.imread(img).reshape(1,640,480,3))
         
         return intermediate_output.flatten()
-    
+
     def fib(self,n):
         if n in self.fib_dict:
             return self.fib_dict[n]
@@ -177,6 +177,7 @@ class ConvertToVector:
     
     def build_index(self):
         self._special_number_generator()
+
         for i,img in enumerate(self.image_set):
             vec = self._vectorize(img)
             fp = int(vec.reshape(1,1131).dot(self.special_num))
@@ -191,7 +192,10 @@ class ConvertToVector:
                 
                     
             print("Completed: ",i)
-            
+
+        with open(self._path + "//inverted_index.json", 'w') as f:
+            json.dump(self.inverted_index, f)
+
     def load_json(self,file_name):
         with open(file_name) as infile:
             json_file = json.loads(infile.read())
@@ -202,7 +206,7 @@ class ConvertToVector:
         file_list = glob.glob(path)
         for f in file_list:
             inverted_index = self.load_json(f)
-            self.master_inverted_index = {**self.master_inverted_index,**inverted_index}
+            self.master_inverted_index = {**self.master_inverted_index, **inverted_index}
         
     def main(self):
         
@@ -219,8 +223,10 @@ class ConvertToVector:
         
 if __name__ == "__main__":
     #path = "C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\Snapshots\\"
-    path = "C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\"
-    file = "Snapshot_1_3sec\\"
+    # path = "C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\"
+    path = './'
+    file = 'data/snapshots'
+    # file = "Snapshot_1_3sec\\"
     vec = ConvertToVector(path,file)
     start = time.time()
     vec.main()
