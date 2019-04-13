@@ -14,6 +14,7 @@ class YoutubeDownloader:
         self.threshold=threshold
         self.max_vid_length=1200 #in seconds ; 20 mins 
         
+        
     def download_single_video(self,url):
         try:
             video = YouTube(url)
@@ -60,8 +61,20 @@ if __name__=='__main__':
     #playlist_url_bruno='https://www.youtube.com/playlist?list=PLDIoUOhQQPlUAdKrN4Z3FpWujWpuKk-sh'  #bruno mars
     #playlist_url_atif='https://www.youtube.com/playlist?list=PLotMWWn7H-dnMLAU3kQesxzzSL8iVzqYT' #atif aslam
     #playlist_url_ed='https://www.youtube.com/playlist?list=PLaq655wqcKDnUvTOizhqwNCiiF_grL1vh' #ed sheeran
+    #============================Done earlier
+    
+    ##==================New set
+    playlist_url_akon='https://www.youtube.com/playlist?list=PLF7BBB89D9CE268F6'
+    playlist_url_shakira='https://www.youtube.com/playlist?list=PLGktc_1Y6KItwyCK_PEkGZQhvyA-FeQ81'
+    playlist_url_beiber='https://www.youtube.com/playlist?list=PLleIaGWJocva27p0roO1ZW0TUHjiy4ZkK'
+    playlist_url_mj='https://www.youtube.com/playlist?list=PLYagrqIg-kgTNL4-c4N6-zeURIPqVkrdK'
     playlist_url_one_direction='https://www.youtube.com/playlist?list=PLxdmSpdkY-5LG9ZYDrX3qQq_iqsjfJhx9'
     
     _youtube_downloader=YoutubeDownloader()
+    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_beiber)
     _youtube_downloader.download_playlist_videos_best_quality(playlist_url_one_direction)
+    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_shakira)
+    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_akon)
+    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_mj)
         
+    
