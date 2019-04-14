@@ -137,13 +137,18 @@ class TestClass:
         fp_vector_dict=dict()
         final_frame_responses=dict()
         
+        _index_builder=IndexBuilder()
+        _index_builder._load_model()
+        
         '''store all fingerprints and vectors as tuples in a list '''
         for image in list_of_all_images:
             ## Capture the frame number from the image, which will be used to create a dictionary of prection for that frame number
             frame_number=image.split('.')[0].split('_')[2]  ## image_name = 'vidname_slice_01.jpg'
             
             #Call the image vectorize method here passing the image'''
-            image_finger_print,vector=56,[12,4,5] #
+            
+            image_finger_print=_index_builder._finger_print(input_path+image)
+            vector=_index_builder._vectorize(input_path+image) 
             fp_vector_dict[frame_number]=(image_finger_print,vector)
 
 
