@@ -20,6 +20,8 @@ class SearchService(Resource):
     def _cosine_similarity(frame, vector):
         # frame - the frame in the indexer
         # vector - the vector in the query
+        # Have some logic ready for this, will complete and push -- Jason
+        
         return vector
 
     def get(self):
