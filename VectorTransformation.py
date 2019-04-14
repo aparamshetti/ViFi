@@ -9,7 +9,8 @@ from keras import regularizers,initializers
 import glob
 from keras.models import load_model
 import pandas as pd
-import pickle
+import json
+import time
 
 class ConvertToVector:
     def __init__(self,path,file,layer_name="vector_layer",dtype = 'float16'):
@@ -23,6 +24,7 @@ class ConvertToVector:
         self.fib_dict = {}
         self.special_num = []
         self.inverted_index = {}
+        self.master_inverted_index = {}
         self.fp_index = {}
         backend.set_floatx(dtype)
         
@@ -42,8 +44,6 @@ class ConvertToVector:
             train_gen = data_gen.flow_from_directory(self._path,target_size=(640,480),batch_size=batch_size,class_mode='input',shuffle=True,seed = 100)
             
             
-
-        print(len(self.image_set))
         self._model.fit_generator(train_gen, steps_per_epoch = len(self.image_set)//batch_size, epochs = epochs)
         self._model.save("C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\model.h5")
         
@@ -89,7 +89,7 @@ class ConvertToVector:
 # =============================================================================
             
     def _get_image_names(self):
-        path = self._path+"\\"+self._file + "\\Images\\*.jpg"
+        path = self._path + "\\" + self._file + "\\*.jpg"
         file_list = glob.glob(path)
         return file_list
     
@@ -151,7 +151,7 @@ class ConvertToVector:
         intermediate_output = intermediate_layer_model.predict(cv2.imread(img).reshape(1,640,480,3))
         
         return intermediate_output.flatten()
-    
+
     def fib(self,n):
         if n in self.fib_dict:
             return self.fib_dict[n]
@@ -177,19 +177,37 @@ class ConvertToVector:
     
     def build_index(self):
         self._special_number_generator()
+
         for i,img in enumerate(self.image_set):
             vec = self._vectorize(img)
-            fp = vec.reshape(1,1131).dot(self.special_num)
+            fp = int(vec.reshape(1,1131).dot(self.special_num))
             name = img.split('\\')[-1]
-            if int(fp) in self.inverted_index:
-                self.inverted_index[int(fp)].append((name,vec))
+            if fp in self.inverted_index:
+                self.inverted_index[fp].append((name,vec.tolist()))
             else:
-                self.inverted_index[int(fp)] = [(name,vec)]            
-            if i % 10 == 0:
-                pickle.dump(self.inverted_index,open(self._path+"//inverted_index.p","wb"))
+                self.inverted_index[fp] = [(name,vec.tolist())]            
+            if i % 100 == 0:
+                with open(self._path+"//inverted_index.json", 'w') as f:
+                    json.dump(self.inverted_index, f)
+                
                     
             print("Completed: ",i)
 
+        with open(self._path + "//inverted_index.json", 'w') as f:
+            json.dump(self.inverted_index, f)
+
+    def load_json(self,file_name):
+        with open(file_name) as infile:
+            json_file = json.loads(infile.read())
+        return json.loads(json_file)
+    
+    def load_and_append_mulitple_dicts(self):
+        path = self._path+"\\*.p"
+        file_list = glob.glob(path)
+        for f in file_list:
+            inverted_index = self.load_json(f)
+            self.master_inverted_index = {**self.master_inverted_index, **inverted_index}
+        
     def main(self):
         
         if len(glob.glob(self._path+"\\*.h5")) > 0:
@@ -205,11 +223,14 @@ class ConvertToVector:
         
 if __name__ == "__main__":
     #path = "C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\Snapshots\\"
-    path = "C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\"
-    file = "Snapshot_1_3sec\\"
+    # path = "C:\\Users\\Jason\\Desktop\\Spring 2019\\Information retreival\\Project\\"
+    path = './'
+    file = 'data/snapshots'
+    # file = "Snapshot_1_3sec\\"
     vec = ConvertToVector(path,file)
+    start = time.time()
     vec.main()
-    d = pickle.load(open(path+"//inverted_index.p","rb"))
+    print("Takes: ", time.time()-start,"sec")
     
 # =============================================================================
 #     image_set = vec._train_model(32)

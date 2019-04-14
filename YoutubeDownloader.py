@@ -6,14 +6,26 @@ Created on Thu Mar  7 20:38:59 2019
 """
 
 from pytube import YouTube,Playlist
+import os
+from resources.PlaylistList import PlaylistList
 
 class YoutubeDownloader:
     
-    def __init__(self,output_path='D:/youtube',threshold=400):
-        self.output_path=output_path
+    def __init__(self,output_path,threshold=400):
         self.threshold=threshold
         self.max_vid_length=1200 #in seconds ; 20 mins 
+        self.generate_video_output_path(output_path)
+        output_path_name=output_path
+        self.output_path=self.generate_video_output_path(output_path_name)
+        print(self.output_path)
         
+    def generate_video_output_path(self,path):
+        try:
+            if not os.path.exists(path):
+                os.makedirs(path) 
+        except Exception as e:
+            print(e)
+        return path
         
     def download_single_video(self,url):
         try:
@@ -53,28 +65,13 @@ class YoutubeDownloader:
             self.download_audio(url+song)
 
 if __name__=='__main__':
-    #playlist_url='https://www.youtube.com/playlist?list=PLaFIwKHa3kMNGfT4thny073B9OrbD1evG'
-    #playlist_url_bolly='https://www.youtube.com/playlist?list=PLvczmdAAtKHtY2Cz_Gd8n4Ry9dO7DtgTv' #2000-2005 bollywood   
-    #playlist_url_taylor='https://www.youtube.com/playlist?list=PL1CbxROoA2JiVzg9zu_AkVHZR9S8mHhzh' #taylor swift
-    #playlist_url='https://www.youtube.com/playlist?list=PLNaDy1xRJz8U6FCnP5LZpSgrSGA5lxbJu' #enrique
-    #playlist_url='https://www.youtube.com/playlist?list=PLMRKdK25AuPVXH-65dQHkajrQIL_UMJxr'  #Ranbir 
-    #playlist_url_bruno='https://www.youtube.com/playlist?list=PLDIoUOhQQPlUAdKrN4Z3FpWujWpuKk-sh'  #bruno mars
-    #playlist_url_atif='https://www.youtube.com/playlist?list=PLotMWWn7H-dnMLAU3kQesxzzSL8iVzqYT' #atif aslam
-    #playlist_url_ed='https://www.youtube.com/playlist?list=PLaq655wqcKDnUvTOizhqwNCiiF_grL1vh' #ed sheeran
-    #============================Done earlier
+    base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
+    base_data_url = f'{base_url}/data'
     
-    ##==================New set
-    playlist_url_akon='https://www.youtube.com/playlist?list=PLF7BBB89D9CE268F6'
-    playlist_url_shakira='https://www.youtube.com/playlist?list=PLGktc_1Y6KItwyCK_PEkGZQhvyA-FeQ81'
-    playlist_url_beiber='https://www.youtube.com/playlist?list=PLleIaGWJocva27p0roO1ZW0TUHjiy4ZkK'
-    playlist_url_mj='https://www.youtube.com/playlist?list=PLYagrqIg-kgTNL4-c4N6-zeURIPqVkrdK'
-    playlist_url_one_direction='https://www.youtube.com/playlist?list=PLxdmSpdkY-5LG9ZYDrX3qQq_iqsjfJhx9'
+    #Get list of playlists
+    list_of_playlists=PlaylistList().get_playslists()
     
-    _youtube_downloader=YoutubeDownloader()
-    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_beiber)
-    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_one_direction)
-    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_shakira)
-    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_akon)
-    _youtube_downloader.download_playlist_videos_best_quality(playlist_url_mj)
-        
-    
+    for playlist in list_of_playlists.keys():
+        _youtube_downloader=YoutubeDownloader(output_path=base_data_url + '/videos/')
+        _youtube_downloader.download_playlist_videos_best_quality(playlist.value)
+            

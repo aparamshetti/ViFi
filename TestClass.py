@@ -9,15 +9,34 @@ from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import fnmatch
 from CaptureSnaps import Capture_Snapshots
 import random
+import requests
+from collections import Counter
+from multiprocessing import Process
+from IndexBuilder import IndexBuilder
+
 
 class TestClass:
-    
-    def __init__(self,cropped_vid_len,inp_path,out_path,snap_out_path):
-        self.cropped_vid_len=cropped_vid_len
+    '''cropped_vid_len is length of sliced video default is 10'''
+    def __init__(self,inp_path,out_path,snap_out_path,cropped_vid_len=10):
+        #checking if the inp and output paths are present if not create them
+        self.generate_output_path(inp_path)
+        self.generate_output_path(out_path)
+        self.generate_output_path(snap_out_path)
+        
+        ##Input and out paths
         self.input_path=inp_path
         self.output_path=out_path
-        self.file_name_appended="_sliced.mp4"
         self.test_snap_out_path=snap_out_path
+        self.file_name_appended="_sliced.mp4"
+        self.cropped_vid_len=cropped_vid_len
+    
+    def generate_output_path(self,path):
+        try:
+            if not os.path.exists(path):
+                os.makedirs(path) 
+        except Exception as e:
+            print(e)
+        return path
     
     def slice_video(self,video_name,vid_length,start_time):
         end_time=vid_length
@@ -76,15 +95,113 @@ class TestClass:
         if test_size > len(all_videos):
             test_size=len(all_videos)
         
-        while len(picked_videos_numbers) <= test_size:
-            num=random.randint(0,len(all_videos))
+        while len(picked_videos_numbers) < test_size:
+            num=random.randint(0,len(all_videos)-1)
             if num not in picked_videos_numbers:
                 picked_videos_numbers.append(num)
+            
         
         picked_videos=[ all_videos[vid_num] for vid_num in picked_videos_numbers ]
         return picked_videos
 
-if __name__ =="__name__":
-    _testing_obj=TestClass(cropped_vid_len=10,inp_path='D:/youtube/already snapped_videos/',out_path='D:/youtube/sliced/',snap_out_path='D:/youtube/test_snaps/')
-    testing_vids=_testing_obj.random_videos_for_testing(10)
+    # Processes all the frames and hits the URl to get the Response and returns a list indicating final prediction ranking
+    def process_testing_snap_folders(self,inp_path):
+        all_predictions=dict()
+        #Get only the directories in the input path
+        try:
+            list_of_all_files = [ name for name in os.listdir(inp_path) if os.path.isdir(os.path.join(inp_path, name)) ]
+        except Exception as e:
+            print('Coulnt find any folders in the path')
+            return
+        
+        for folder in list_of_all_files:
+            prediction=self.process_testing_snaps(inp_path+folder+'/')
+            all_predictions[folder]=prediction
+
+    # SINGLE PRERDICTION ----Processes all the frames and hits the URl to get the Response and returns a list indicating final prediction ranking
+    def single_testing_snap_folder(self,inp_path):
+        #Get only the directories in the input path
+        try:
+            list_of_all_files = [ name for name in os.listdir(inp_path) if os.path.isdir(os.path.join(inp_path, name)) ]
+        except Exception as e:
+            print('Coulnt find any folders in the path')
+            return
+        
+        for folder in list_of_all_files[0]:
+            prediction=self.process_testing_snaps(inp_path+folder+'/')
+        return prediction
+    
+    ## Takes inp path and captures the results for the all the frame in a dictionary and returns the Ranking of the videos
+    def process_testing_snaps(self,input_path):
+        list_of_all_images = os.listdir(input_path)
+        fp_vector_dict=dict()
+        final_frame_responses=dict()
+        
+        '''store all fingerprints and vectors as tuples in a list '''
+        for image in list_of_all_images:
+            ## Capture the frame number from the image, which will be used to create a dictionary of prection for that frame number
+            frame_number=image.split('.')[0].split('_')[2]  ## image_name = 'vidname_slice_01.jpg'
+            
+            #Call the image vectorize method here passing the image'''
+            image_finger_print,vector=56,[12,4,5] #
+            fp_vector_dict[frame_number]=(image_finger_print,vector)
+
+
+        '''Make requests to the server and store the results in the dict'''
+        for f_id,values in fp_vector_dict.keys():
+            fp=values[0]
+            vector=values[1]
+            response=self.generate_url_to_hit(fp,vector)
+            
+            final_frame_responses[f_id]=response ## extract the result from the response based on the format
+
+
+        '''#### MULTIPROCESSING BACKUP !!!Make requests to the server and store the results in the dict        
+        processes=[]
+        for f_id,values in fp_vector_dict.keys():
+            
+            fp=values[0]
+            vector=values[1]
+            process=Process(target=self.generate_url_to_hit_multiprcoess,args=(fp,vector,f_id,final_frame_responses))
+            processes.append(process)
+            process.start()
+        
+        for process in processes:
+            process.join() '''
+                
+        
+        '''Calculate the frequencies of the values of the dictionary and return the results'''
+        final_prediction=Counter(final_frame_responses.values()).most_common()
+        return final_prediction
+    
+    ### Multiprocessing !!!!!!!This method takes in fingerprint and vector and hits the get request to the server and returns the response        
+    def generate_url_to_hit_multiprcoess(self,fingerprint,vector,fr_id,final_frame_responses):
+        port_no=8000 #temp
+        URL=f'http://localhost:{port_no}/search'
+        response = requests.get(url = URL, params={'fp': fingerprint, 'vector': vector})
+        final_frame_responses[fr_id]=response ## extract final answer field from response
+
+    
+    ### This method takes in fingerprint and vector and hits the get request to the server and returns the response        
+    def generate_url_to_hit(self,fingerprint,vector):
+        port_no=8000 #temp
+        URL=f'http://localhost:{port_no}/search'
+        response = requests.get(url = URL, params={'fp': fingerprint, 'vector': vector})
+        return response.json()
+    
+        
+if __name__ =="__main__":
+    #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
+    base_url='D:/Workspaces/ViFI_IR_Project/ViFi'
+    base_data_url = f'{base_url}/data'
+    testing_set_size=10
+    
+    _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
+                           out_path=base_data_url+'/sliced_videos_testing/',
+                           snap_out_path=base_data_url+'/sliced_video_snapshots/')
+    
+    testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
     _testing_obj.slice_all_video(testing_vids)
+    
+    ##process each testing snaps folder and get the result
+    _testing_obj.process_testing_snap_folders(inp_path=base_data_url+'/sliced_video_snapshots/')
