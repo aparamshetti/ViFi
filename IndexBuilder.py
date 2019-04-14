@@ -148,10 +148,9 @@ class IndexBuilder:
         print(glob.glob(relative_path+"*master.json")[0])
         print(os.path.join(self._base,"master\\"))
         
-        copyfile(glob.glob(relative_path+"*master.json")[0],os.path.join(self._base,"master\\inverted_index_final_master.json"))
         
     #master path needs to be relative to data path and is a directory
-    def _create_n_dictionaries(self,master_path,number_of_servers=6):
+    def _create_n_dictionaries(self,master_path,write_path,number_of_servers=6):
         if not path.isdir(master_path):
             raise FileNotFoundError("The specified input dir '{}' doesn't exist.".format(master_path))
         
@@ -171,7 +170,7 @@ class IndexBuilder:
             split_dict[i][key] = val
         
         for i, d in enumerate(split_dict):
-            with open(path.join(master_path, "server_{}.json".format(i+1)), 'w') as f:
+            with open(path.join(write_path, "server_{}.json".format(i+1)), 'w') as f:
                 json.dump(d, f)
             
     
@@ -180,7 +179,7 @@ class IndexBuilder:
         self._load_model()
         self._build_multiple_indexes()
         self._create_master_index(self._index_dir+"\\dictionaries\\")
-        self._create_n_dictionaries("master")
+        self._create_n_dictionaries("resources\\dictionaries\\","master")
 
 
 if __name__ == '__main__':

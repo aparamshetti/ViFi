@@ -2,6 +2,7 @@ import json
 
 from flask import request
 from flask_restful import reqparse, Resource
+import numpy as np
 
 # setup a request parser for parsing the query parameters
 parser = reqparse.RequestParser()
@@ -15,12 +16,20 @@ class SearchService(Resource):
         with open(indexer_filepath, 'r') as f:
             self._indexer = json.loads(f.read())
 
-    # TODO: Add code to find the cosine similarity
     @staticmethod
-    def _cosine_similarity(frame, vector):
-        # frame - the frame in the indexer
-        # vector - the vector in the query
-        return vector
+    # query is assumed to be a tuple of type (finger print, vector)
+    def _cosine_similarity(self,query):
+        if query[0] in self._indexer:
+            vector_list = self._indexer[query[0]]
+        else:
+            return [()]
+        
+        result = []
+        for ele in vector_list:
+            cosine_similarity = np.sum(np.multiply(ele[1],query[1]))/(np.linalg.norm(ele[1])*np.linalg.norm(query[1]))
+            result.append((ele[0],cosine_similarity))
+    
+        return result
 
     def get(self):
         args = parser.parse_args()
