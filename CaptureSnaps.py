@@ -127,7 +127,7 @@ class Capture_Snapshots:
         return frames_to_be_captured
     
     def capture_snaps_of_video(self, url, video_number):
-        self._video_dict[video_number] = url
+        self._video_dict[f'{video_number:04}'] = url
         video = cv2.VideoCapture(self.input_path+url) 
         frame_rate=video.get(5) #captures the frame rate
         '''Setting video length feature on'''
@@ -201,9 +201,7 @@ class Capture_Snapshots:
 
         with open('resources/video_dict.json', 'w') as f:
             import json
-            d = json.dumps(self._video_dict)
-            print(d)
-            f.write(d)
+            json.dump(self._video_dict, f)
 
 
 if __name__ == '__main__':

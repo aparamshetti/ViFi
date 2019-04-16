@@ -1,4 +1,5 @@
 import os
+import re
 
 from flask import Flask
 from flask_restful import Api
@@ -31,12 +32,14 @@ class StartSearchServices:
             t.start()
 
         for one_process in processes:
-            one_process.join()
+            one_process.join(1)
 
 
 if __name__ == '__main__':
-    # TODO: the list of indexer filepath should be dynamic
-    StartSearchServices(['resources/inverted_index.json', 'resources/inverted_index1.json']).start_services()
+    dict_path = 'master'
+    pattern = re.compile('server_.*\.json')
+    StartSearchServices([os.path.join(dict_path, f) for f in os.listdir(dict_path)
+                         if os.path.isfile(os.path.join(dict_path, f))]).start_services()
 
     #  Run the following lines of code to make sure the services are running fine
     # from requests import get
