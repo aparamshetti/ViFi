@@ -13,6 +13,23 @@ import requests
 from collections import Counter
 from multiprocessing import Process
 from IndexBuilder import IndexBuilder
+import logging
+
+logger=logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+file_name = str(__file__)
+sep=''
+if '/' in file_name:
+    sep='/'
+else:
+    sep='\\'
+file_name=file_name.split(sep)[-1].replace('.py','.log')
+
+formatter=logging.Formatter('%(asctime)s:%(filename)s:%(message)s')
+file_handler = logging.FileHandler(f'./logs/{file_name}')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 
 class TestClass:
@@ -35,7 +52,7 @@ class TestClass:
             if not os.path.exists(path):
                 os.makedirs(path) 
         except Exception as e:
-            print(e)
+            logger.info(e)
         return path
     
     def slice_video(self,video_name,vid_length,start_time):
@@ -67,7 +84,7 @@ class TestClass:
         _capture_snapshots=Capture_Snapshots(per_sec_frame_flag=False,input_path=self.input_path,output_path=self.output_path)
         
         for video_url in video_list:
-            print("\nProcessing video : {}".format(video_url))
+            logger.info("\nProcessing video : {}".format(video_url))
             vid_len=_capture_snapshots.get_vid_length(video_url)
             start_time=self.get_random_start_time(vid_len)
             self.slice_video(video_url,vid_len,start_time)
@@ -111,7 +128,7 @@ class TestClass:
         try:
             list_of_all_files = [ name for name in os.listdir(inp_path) if os.path.isdir(os.path.join(inp_path, name)) ]
         except Exception as e:
-            print('Coulnt find any folders in the path')
+            logger.info(f'Coulnt find any folders in the path {inp_path}')
             return
         
         for folder in list_of_all_files:
@@ -124,7 +141,7 @@ class TestClass:
         try:
             list_of_all_files = [ name for name in os.listdir(inp_path) if os.path.isdir(os.path.join(inp_path, name)) ]
         except Exception as e:
-            print('Coulnt find any folders in the path')
+            logger.info(f'Coulnt find any folders in the path {inp_path}')
             return
         
         for folder in list_of_all_files[0]:
@@ -144,9 +161,7 @@ class TestClass:
         for image in list_of_all_images:
             ## Capture the frame number from the image, which will be used to create a dictionary of prection for that frame number
             frame_number=image.split('.')[0].split('_')[2]  ## image_name = 'vidname_slice_01.jpg'
-            
             #Call the image vectorize method here passing the image'''
-            
             image_finger_print=_index_builder._finger_print(input_path+image)
             vector=_index_builder._vectorize(input_path+image) 
             fp_vector_dict[frame_number]=(image_finger_print,vector)
@@ -193,20 +208,23 @@ class TestClass:
         URL=f'http://localhost:{port_no}/search'
         response = requests.get(url = URL, params={'fp': fingerprint, 'vector': vector})
         return response.json()
-    
+    @staticmethod
+    def main():
+        #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
+        base_url='D:/Workspaces/ViFI_IR_Project/ViFi'
+        base_data_url = f'{base_url}/data'
+        testing_set_size=10
+        
+        _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
+                               out_path=base_data_url+'/sliced_videos_testing/',
+                               snap_out_path=base_data_url+'/sliced_video_snapshots/')
+        
+        testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
+        _testing_obj.slice_all_video(testing_vids)
+        
+        ##process each testing snaps folder and get the result
+        _testing_obj.process_testing_snap_folders(inp_path=base_data_url+'/sliced_video_snapshots/')
         
 if __name__ =="__main__":
-    #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
-    base_url='D:/Workspaces/ViFI_IR_Project/ViFi'
-    base_data_url = f'{base_url}/data'
-    testing_set_size=10
-    
-    _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
-                           out_path=base_data_url+'/sliced_videos_testing/',
-                           snap_out_path=base_data_url+'/sliced_video_snapshots/')
-    
-    testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
-    _testing_obj.slice_all_video(testing_vids)
-    
-    ##process each testing snaps folder and get the result
-    _testing_obj.process_testing_snap_folders(inp_path=base_data_url+'/sliced_video_snapshots/')
+    TestClass.main()
+

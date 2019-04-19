@@ -12,6 +12,25 @@ import fnmatch
 import random
 import shutil
 
+import logging
+
+logger=logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+file_name = str(__file__)
+sep=''
+if '/' in file_name:
+    sep='/'
+else:
+    sep='\\'
+file_name=file_name.split(sep)[-1].replace('.py','.log')
+
+print("snaps file ",file_name)
+formatter=logging.Formatter('%(asctime)s:%(filename)s:%(message)s')
+file_handler = logging.FileHandler(f'./logs/{file_name}')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
 class Capture_Snapshots:
     
     def __init__(self,input_path,output_path,per_sec_frame_flag=True):
@@ -36,7 +55,7 @@ class Capture_Snapshots:
             if not os.path.exists(path):
                 os.makedirs(path) 
         except Exception as e:
-            print(e)
+            logger.info(e)
         return path
      
         
@@ -62,10 +81,8 @@ class Capture_Snapshots:
     def capture_all_frames(self,video_name,inp_path,out_path):
         video = cv2.VideoCapture(inp_path+video_name) 
         frame_rate=video.get(5) #captures the frame rate
-        print(f'{video_name} has {frame_rate} per second!')
         video = cv2.VideoCapture(inp_path+video_name) 
         video_name=video_name.split('.')[0]
-        print("In capture all frmae video name",video_name)
         
         while (video.isOpened()):
             frame_id=video.get(1) # captures the current frame id
@@ -192,7 +209,7 @@ class Capture_Snapshots:
         ############################################################
         
         for counter,video_url in enumerate(all_videos,start=1):
-            print("Processing video number : {} \n video name : {}".format(counter,video_url))
+            logger.info("Processing video number : {} \n video name : {}".format(counter,video_url))
             self.capture_snaps_of_video(video_url, counter)
             
             ##Move video to completed folder after capturing all the frames
@@ -202,15 +219,19 @@ class Capture_Snapshots:
         with open('resources/video_dict.json', 'w') as f:
             import json
             d = json.dumps(self._video_dict)
-            print(d)
             f.write(d)
+    
+    @staticmethod
+    def main():
+        ##Capture_Snapshots classes takes as input input path and output path and per_sec_frame_flag       
+        '''per_sec_frame_flag : If it desired to capture atleast one frame sec then this flag is true else if desired to capture a frame for 5sec set False'''
+        base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
+        base_data_url = f'{base_url}/data'
+        
+        _capture_snapshots=Capture_Snapshots(input_path=base_data_url + '/videos/',output_path=base_data_url + '/snapshots/',per_sec_frame_flag=True)
+        _capture_snapshots.capture_snaps_all_videos()       
+
 
 
 if __name__ == '__main__':
-    ##Capture_Snapshots classes takes as input input path and output path and per_sec_frame_flag       
-    '''per_sec_frame_flag : If it desired to capture atleast one frame sec then this flag is true else if desired to capture a frame for 5sec set False'''
-    base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
-    base_data_url = f'{base_url}/data'
-    print("base url ",base_data_url)
-    _capture_snapshots=Capture_Snapshots(input_path=base_data_url + '/videos/',output_path=base_data_url + '/snapshots/',per_sec_frame_flag=True)
-    _capture_snapshots.capture_snaps_all_videos()       
+    Capture_Snapshots.main()
