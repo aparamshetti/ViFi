@@ -12,6 +12,7 @@ import pandas as pd
 import json
 import time
 
+
 class ConvertToVector:
     def __init__(self,path,file,layer_name="vector_layer",dtype = 'float16'):
         self._model = None
