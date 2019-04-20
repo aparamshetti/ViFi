@@ -42,22 +42,22 @@ class YoutubeDownloader:
             if not os.path.exists(path):
                 os.makedirs(path) 
         except Exception as e:
-            logger.info(e)
+            logger.error(e)
         return path
         
     def download_single_video(self,url):
         try:
             video = YouTube(url)
             if 'lyric' in video.title.lower() or 'mashup' in video.title.lower() or 'audio' in video.title.lower():
-                logger.info(f"Ignored because its a lyrical video : {video.title}")
+                logger.warning(f"Ignored because its a lyrical video : {video.title}")
                 return
             if int(video.length) > self.max_vid_length:
-                logger.info(f'Ignored because video is too long, name: {video.title}')
+                logger.warning(f'Ignored because video is too long, name: {video.title}')
                 return
             stream = video.streams.filter(file_extension = "mp4",adaptive=True)
             stream.first().download(self.output_path)
         except Exception as e:
-            logger.info(f'Could not downlaod video {video.title} failed with exception : {e}')
+            logger.error(f'Could not downlaod video failed with exception : {e}')
             
     def download_playlist_video(self,url):
         pl=Playlist(url)

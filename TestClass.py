@@ -208,6 +208,7 @@ class TestClass:
         URL=f'http://localhost:{port_no}/search'
         response = requests.get(url = URL, params={'fp': fingerprint, 'vector': vector})
         return response.json()
+    
     @staticmethod
     def main():
         #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")

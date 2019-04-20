@@ -55,7 +55,7 @@ class Capture_Snapshots:
             if not os.path.exists(path):
                 os.makedirs(path) 
         except Exception as e:
-            logger.info(e)
+            logger.error(e)
         return path
      
         
