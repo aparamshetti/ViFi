@@ -7,7 +7,7 @@ Created on Thu Apr 18 20:30:25 2019
 import os
 import logging
 from YoutubeDownloader import YoutubeDownloader
-from CaptureSnaps import Capture_Snapshots
+from CaptureSnaps import CaptureSnapshots
 
 logger=logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -42,7 +42,7 @@ class Main:
         logger.info('Downloading videos')
         YoutubeDownloader.main()
         logger.info('Capturing Snapshots')
-        Capture_Snapshots.main()
+        CaptureSnapshots.main()
     
     
 if __name__=='__main__':

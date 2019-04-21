@@ -17,7 +17,6 @@ from keras.models import load_model
 
 
 class IndexBuilder:
-    # TODO: move all the model related code to the VectorTransformation file
     def __init__(self, model_filepath, input_dir, resource_dir, layer_name='vector_layer', dtype='float16'):
         self._base = os.path.dirname(os.path.realpath(__file__))
         self._model_filepath = model_filepath

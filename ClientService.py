@@ -53,7 +53,7 @@ class ClientService:
     def run(self):
         fp_vectors = self._process_snaps()
 
-        pool = Pool()
+        pool = Pool(processes=self._num_servers)
 
         start_time = time.time()
         for i in range(self._num_servers):

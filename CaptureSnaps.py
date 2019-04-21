@@ -31,8 +31,8 @@ file_handler = logging.FileHandler(f'./logs/{file_name}')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
-class Capture_Snapshots:
-    
+
+class CaptureSnapshots:
     def __init__(self,input_path,output_path,per_sec_frame_flag=True):
         self.input_path=input_path
         self.generate_output_path(output_path)
@@ -229,8 +229,8 @@ class Capture_Snapshots:
         base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
         base_data_url = f'{base_url}/data'
         
-        _capture_snapshots=Capture_Snapshots(input_path=base_data_url + '/videos/',output_path=base_data_url + '/snapshots/',per_sec_frame_flag=True)
+        _capture_snapshots=CaptureSnapshots(input_path=base_data_url + '/videos/', output_path=base_data_url + '/snapshots/', per_sec_frame_flag=True)
         _capture_snapshots.capture_snaps_all_videos()   
 
 if __name__ == '__main__':
-    Capture_Snapshots.main()
+    CaptureSnapshots.main()
