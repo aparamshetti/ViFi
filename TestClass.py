@@ -5,7 +5,7 @@ Created on Tue Apr  9 20:07:09 2019
 @author: Sayed Inamdar
 """
 import os
-from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+#from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import fnmatch
 from CaptureSnaps import CaptureSnapshots
 import random
@@ -231,12 +231,14 @@ class TestClass:
     
     def run_local(self):
         test_files = os.listdir(self.test_snap_out_path)
+    
         all_results = []
         actuals = []
         
         base_url = 'data'
         Index = IndexBuilder('model.h5', base_url + '\snapshots', 'resources')
     
+        print(test_files)
         for t in test_files:
             actuals.append(t)
             images = glob.glob(os.path.join(self.test_snap_out_path,t)+"/*.jpg")
@@ -247,13 +249,16 @@ class TestClass:
                     vec_list = self._master[str(fp)]
                     for ans_vec in vec_list:
                         c = self._cosine_similarity(query_vec,ans_vec[1])
-                        results.append((ans_vec[0].split('_')[0],c))
+                        results.append([ans_vec[0].split('_')[0],c])
                 
             all_results.append(results)
-
+        
         data_frames = []
         
         for res in all_results:
+            print("==================================")
+            print(res)
+            print("=============Done=================")
             data_frames.append(self.convert_to_df(res))
         
         final_df = pd.DataFrame(columns=['actual', 'precision', 'recall', 'is_first'])
@@ -282,6 +287,7 @@ class TestClass:
         _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
                                out_path=base_data_url+'/sliced_videos_testing/',
                                snap_out_path=base_data_url+'/sliced_video_snapshots/')
+        print(_testing_obj.test_snap_out_path)
         
        # testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
        # _testing_obj.slice_all_video(testing_vids)
