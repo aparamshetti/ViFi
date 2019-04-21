@@ -8,6 +8,24 @@ Created on Thu Mar  7 20:38:59 2019
 from pytube import YouTube,Playlist
 import os
 from resources.PlaylistList import PlaylistList
+import logging
+
+logger=logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+file_name = str(__file__)
+sep=''
+if '/' in file_name:
+    sep='/'
+else:
+    sep='\\'
+file_name=file_name.split(sep)[-1].replace('.py','.log')
+
+formatter=logging.Formatter('%(asctime)s:%(filename)s:%(message)s')
+file_handler = logging.FileHandler(f'./logs/{file_name}')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
 
 class YoutubeDownloader:
     
@@ -24,22 +42,22 @@ class YoutubeDownloader:
             if not os.path.exists(path):
                 os.makedirs(path) 
         except Exception as e:
-            print(e)
+            logger.error(e)
         return path
         
     def download_single_video(self,url):
         try:
             video = YouTube(url)
-            if 'lyric' in video.title.lower() or 'mashup' in video.title.lower():
-                print("Ignored because its a lyrical video")
+            if 'lyric' in video.title.lower() or 'mashup' in video.title.lower() or 'audio' in video.title.lower():
+                logger.warning(f"Ignored because its a lyrical video : {video.title}")
                 return
             if int(video.length) > self.max_vid_length:
-                print(f'Ignored because video is too long, name: {video.title}')
+                logger.warning(f'Ignored because video is too long, name: {video.title}')
                 return
             stream = video.streams.filter(file_extension = "mp4",adaptive=True)
             stream.first().download(self.output_path)
         except Exception as e:
-            print(f'Could not downlaod {e}')
+            logger.error(f'Could not downlaod video failed with exception : {e}')
             
     def download_playlist_video(self,url):
         pl=Playlist(url)
@@ -52,7 +70,6 @@ class YoutubeDownloader:
             if counter>self.threshold:
                 break
             counter+=1
-            print(f"Downloading song no {counter}")
             self.download_single_video(url+song)
     
     def download_audio(self,url):
@@ -64,14 +81,25 @@ class YoutubeDownloader:
         for song in pl:
             self.download_audio(url+song)
 
+    @staticmethod
+    def main():
+        base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
+        base_data_url = f'{base_url}/data'
+        
+        #Get list of playlists
+        list_of_playlists=PlaylistList.get_playslists()
+        logger.info(f"Downloading the folowing playlists {list_of_playlists}")
+        for key,value in list_of_playlists.items():
+            logger.info(f"Downloading Playlist : {key}")
+            _youtube_downloader=YoutubeDownloader(output_path=base_data_url + '/videos/')
+            _youtube_downloader.download_playlist_videos_best_quality(value)
+        
+
+
 if __name__=='__main__':
-    base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
-    base_data_url = f'{base_url}/data'
+    YoutubeDownloader.main()
     
-    #Get list of playlists
-    list_of_playlists=PlaylistList().get_playslists()
+
+        
     
-    for playlist in list_of_playlists.keys():
-        _youtube_downloader=YoutubeDownloader(output_path=base_data_url + '/videos/')
-        _youtube_downloader.download_playlist_videos_best_quality(playlist.value)
             
