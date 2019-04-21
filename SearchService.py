@@ -1,8 +1,9 @@
 import json
-
-from flask import request
-from flask_restful import reqparse, Resource
+import flask
 import numpy as np
+
+from flask import request, session
+from flask_restful import reqparse, Resource
 
 # setup a request parser for parsing the query parameters
 parser = reqparse.RequestParser()
@@ -11,9 +12,8 @@ parser.add_argument('vector', type=float, required=True, action='append')
 
 
 class SearchService(Resource):
-    def __init__(self, indexer_filepath):
-        with open(indexer_filepath, 'r') as f:
-            self._indexer = json.loads(f.read())
+    def __init__(self, indexer):
+        self._indexer = indexer
 
     @staticmethod
     def _cosine_similarity(query, vector):

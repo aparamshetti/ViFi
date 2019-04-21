@@ -1,5 +1,6 @@
 import os
 import re
+import json
 
 from flask import Flask
 from flask_restful import Api
@@ -10,13 +11,17 @@ from SearchService import SearchService
 class StartSearchServices:
     def __init__(self, indexer_filepaths):
         self._indexer_filepaths = indexer_filepaths
+        print('Starting service!!')
 
     @staticmethod
     def _start(port, filepath):
+        with open(filepath, 'r') as f:
+            indexer = json.loads(f.read())
+
         app = Flask(__name__)
         api = Api(app)
 
-        api.add_resource(SearchService, '/search', resource_class_kwargs={'indexer_filepath': filepath})
+        api.add_resource(SearchService, '/search', resource_class_kwargs={'indexer': indexer})
         app.run(port=port)
 
     # spawn multiple processes to run the search service

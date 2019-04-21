@@ -59,7 +59,6 @@ class ClientService:
         for i in range(self._num_servers):
             pool.apply_async(func=self._hit_api, args=(self._base_url.format(8000 + i), fp_vectors[i],),
                              callback=self._merge_responses)
-            time.sleep(2)
 
         pool.close()
         pool.join()

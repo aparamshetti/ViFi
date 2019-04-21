@@ -50,9 +50,9 @@ class TestClass:
         self.cropped_vid_len=cropped_vid_len
         self.index_path = 'resources/dictionaries/'
         self.video_dict_path = 'resources'
-        
+
         if not use_server:
-            self._master, self._video_dict = self.load_master_dict(self.index_path,self.video_dict_path)
+            self._master, self._video_dict = self.load_master_dict()
     
     def generate_output_path(self,path):
         try:
@@ -203,33 +203,34 @@ class TestClass:
 
         return self.convert_to_df(matching_frame_results)
 
-
-    def convert_to_df(self,matching_frame_results):
+    def convert_to_df(self, matching_frame_results):
         df = pd.DataFrame.from_records(matching_frame_results, columns=['video_id', 'similarity'])
+        print(df.head())
         df = df.groupby('video_id').similarity.agg(['sum', 'count']).reset_index()
         df['number_frames'] = len(matching_frame_results)
-        df['predicted'] = self.video_dict[df['video_id'][0]]
+        df['predicted'] = self._video_dict[df['video_id'][0]]
         df.drop(labels=['video_id'], axis=1)
         df['score'] = df['sum'] / df['number_frames']
 
         df.sort_values(by='score', ascending=False, inplace=True)
         
         return df
-    
+
+    @staticmethod
     def _cosine_similarity(query, vector):
         return np.dot(query, vector) / (np.sqrt(np.dot(query, query)) * np.sqrt(np.dot(vector, vector)))
 
     def load_master_dict(self):
-        with open(os.path.join(self.index_path,"inverted_index_master.json"),'r') as f:
+        with open(os.path.join(self.index_path, "inverted_index_master.json"), 'r') as f:
             master = json.load(f)
          
-        with open(os.path.join(self.video_dict_path,"video_dict.json"),'r') as f:
+        with open(os.path.join(self.video_dict_path, "video_dict.json"), 'r') as f:
             video_dict = json.load(f)
         
         return master, video_dict
     
     def run_local(self):
-        test_files = os.listdir(self.snap_out_path)
+        test_files = os.listdir(self.test_snap_out_path)
         all_results = []
         actuals = []
         
@@ -238,19 +239,18 @@ class TestClass:
     
         for t in test_files:
             actuals.append(t)
-            images = glob.glob(os.path.join(self.snap_out_path,t)+"/*.jpg")  
+            images = glob.glob(os.path.join(self.test_snap_out_path,t)+"/*.jpg")
             results = []
             for img in images:
                 fp,query_vec = Index.finger_print(img)
-                if str(fp) in self.master:
-                    vec_list = self.master[str(fp)]
+                if str(fp) in self._master:
+                    vec_list = self._master[str(fp)]
                     for ans_vec in vec_list:
                         c = self._cosine_similarity(query_vec,ans_vec[1])
                         results.append((ans_vec[0].split('_')[0],c))
                 
             all_results.append(results)
-                
-        
+
         data_frames = []
         
         for res in all_results:
@@ -268,11 +268,9 @@ class TestClass:
             is_first = 1 if top['predicted'] == actual else 0
 
             final_df = final_df.append(pd.DataFrame(data=[[actual, precision, recall, is_first]],
-                                                        columns=['actual', 'precision', 'recall', 'is_first']))
+                                                    columns=['actual', 'precision', 'recall', 'is_first']))
 
         return final_df
-        
-
     
     @staticmethod
     def main():
