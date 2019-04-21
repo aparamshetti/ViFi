@@ -5,14 +5,14 @@ Created on Tue Apr  9 20:07:09 2019
 @author: Sayed Inamdar
 """
 import os
+import json
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import fnmatch
-from CaptureSnaps import Capture_Snapshots
+from CaptureSnaps import CaptureSnapshots
 import random
-import requests
-from collections import Counter
-from multiprocessing import Process
+import pandas as pd
 from IndexBuilder import IndexBuilder
+from ClientService import ClientService
 
 
 class TestClass:
@@ -29,6 +29,8 @@ class TestClass:
         self.test_snap_out_path=snap_out_path
         self.file_name_appended="_sliced.mp4"
         self.cropped_vid_len=cropped_vid_len
+
+        self.columns = ['sum', 'count', 'score']
     
     def generate_output_path(self,path):
         try:
@@ -48,7 +50,7 @@ class TestClass:
 
         print(f'Start time {start_time}')
         print(f'End time {end_time}')
-        #check if video length is 
+        #check if video length is
         output_file_name=video_name.split('.')
         ffmpeg_extract_subclip (self.input_path+video_name, start_time, end_time, targetname=self.output_path+output_file_name[0]+self.file_name_appended)
     
@@ -56,7 +58,6 @@ class TestClass:
         start_time=0
         if vid_length<self.cropped_vid_len:
             start_time=0
-            
         else:
             start_time=random.randint(0,int(vid_length-self.cropped_vid_len))
         return start_time
@@ -64,7 +65,7 @@ class TestClass:
     
     def slice_all_video(self,video_list):
         # Instatiating CaptureSnaps
-        _capture_snapshots=Capture_Snapshots(per_sec_frame_flag=False,input_path=self.input_path,output_path=self.output_path)
+        _capture_snapshots=CaptureSnapshots(per_sec_frame_flag=False, input_path=self.input_path, output_path=self.output_path)
         
         for video_url in video_list:
             print("\nProcessing video : {}".format(video_url))
@@ -111,7 +112,7 @@ class TestClass:
         try:
             list_of_all_files = [ name for name in os.listdir(inp_path) if os.path.isdir(os.path.join(inp_path, name)) ]
         except Exception as e:
-            print('Coulnt find any folders in the path')
+            print('Couldn\'t find any folders in the path')
             return
         
         for folder in list_of_all_files:
@@ -124,7 +125,7 @@ class TestClass:
         try:
             list_of_all_files = [ name for name in os.listdir(inp_path) if os.path.isdir(os.path.join(inp_path, name)) ]
         except Exception as e:
-            print('Coulnt find any folders in the path')
+            print('Couldn\'t find any folders in the path')
             return
         
         for folder in list_of_all_files[0]:
@@ -132,81 +133,86 @@ class TestClass:
         return prediction
     
     ## Takes inp path and captures the results for the all the frame in a dictionary and returns the Ranking of the videos
-    def process_testing_snaps(self,input_path):
-        list_of_all_images = os.listdir(input_path)
-        fp_vector_dict=dict()
-        final_frame_responses=dict()
-        
-        _index_builder=IndexBuilder()
-        _index_builder._load_model()
-        
+    def process_testing_snaps(self, input_path, url, num_servers):
+        dirs = [os.path.join(input_path, f) for f in os.listdir(input_path)
+                if os.path.isdir(os.path.join(input_path, f))]
+
+        index_builder = IndexBuilder('model.h5', input_path, 'resources')
+
+        with open('resources/video_dict.json', 'r') as f:
+            video_dict = json.load(f)
+
+        data_frame = pd.DataFrame(columns=['actual', 'precision', 'recall', 'is_first'])
+
         '''store all fingerprints and vectors as tuples in a list '''
-        for image in list_of_all_images:
-            ## Capture the frame number from the image, which will be used to create a dictionary of prection for that frame number
-            frame_number=image.split('.')[0].split('_')[2]  ## image_name = 'vidname_slice_01.jpg'
-            
-            #Call the image vectorize method here passing the image'''
-            
-            image_finger_print=_index_builder._finger_print(input_path+image)
-            vector=_index_builder._vectorize(input_path+image) 
-            fp_vector_dict[frame_number]=(image_finger_print,vector)
+        for dir in dirs:
+            actual = os.path.split(dir)[-1]
+            df = self._run(index_builder, dir, url, num_servers, video_dict)
+            df['actual'] = actual
+
+            precision = 1 if df[df['predicted'] == actual]['predicted'].count() > 0 else 0
+            recall = precision
+            top = df.loc[df['score'].idxmax()]
+            is_first = 1 if top['predicted'] == actual else 0
+
+            data_frame = data_frame.append(pd.DataFrame(data=[[actual, precision, recall, is_first]],
+                                                        columns=['actual', 'precision', 'recall', 'is_first']))
+
+        return data_frame
+
+    def test_run(self, input_path, url, num_servers,):
+        index_builder = IndexBuilder('model.h5', input_path, 'resources')
+
+        with open('resources/video_dict.json', 'r') as f:
+            video_dict = json.load(f)
+
+        actual = input_path.split()[-1]
+        df = self._run(index_builder, input_path, url, num_servers, video_dict)
+        df['actual'] = actual
+
+        return df
+
+    def _run(self, index_builder, filepath, url, num_servers, video_dict):
+        client = ClientService(index_builder, filepath, url, num_servers)
+        results = client.run()
+
+        matching_frame_results = []
+        for result in list(results):
+            if len(result) != 0:
+                matching_frame_results.extend(result)
+
+        df = pd.DataFrame.from_records(matching_frame_results, columns=['video_id', 'similarity'])
+        df = df.groupby('video_id').similarity.agg(['sum', 'count']).reset_index()
+        df['number_frames'] = len(matching_frame_results)
+        df['predicted'] = video_dict[df['video_id'][0]]
+        df.drop(labels=['video_id'], axis=1)
+        df['score'] = df['sum'] / df['number_frames']
+
+        df.sort_values(by='score', ascending=False, inplace=True)
+
+        return df
 
 
-        '''Make requests to the server and store the results in the dict'''
-        for f_id,values in fp_vector_dict.keys():
-            fp=values[0]
-            vector=values[1]
-            response=self.generate_url_to_hit(fp,vector)
-            
-            final_frame_responses[f_id]=response ## extract the result from the response based on the format
-
-
-        '''#### MULTIPROCESSING BACKUP !!!Make requests to the server and store the results in the dict        
-        processes=[]
-        for f_id,values in fp_vector_dict.keys():
-            
-            fp=values[0]
-            vector=values[1]
-            process=Process(target=self.generate_url_to_hit_multiprcoess,args=(fp,vector,f_id,final_frame_responses))
-            processes.append(process)
-            process.start()
-        
-        for process in processes:
-            process.join() '''
-                
-        
-        '''Calculate the frequencies of the values of the dictionary and return the results'''
-        final_prediction=Counter(final_frame_responses.values()).most_common()
-        return final_prediction
-    
-    ### Multiprocessing !!!!!!!This method takes in fingerprint and vector and hits the get request to the server and returns the response        
-    def generate_url_to_hit_multiprcoess(self,fingerprint,vector,fr_id,final_frame_responses):
-        port_no=8000 #temp
-        URL=f'http://localhost:{port_no}/search'
-        response = requests.get(url = URL, params={'fp': fingerprint, 'vector': vector})
-        final_frame_responses[fr_id]=response ## extract final answer field from response
-
-    
-    ### This method takes in fingerprint and vector and hits the get request to the server and returns the response        
-    def generate_url_to_hit(self,fingerprint,vector):
-        port_no=8000 #temp
-        URL=f'http://localhost:{port_no}/search'
-        response = requests.get(url = URL, params={'fp': fingerprint, 'vector': vector})
-        return response.json()
-    
-        
 if __name__ =="__main__":
     #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
-    base_url='D:/Workspaces/ViFI_IR_Project/ViFi'
+    base_url='.'
     base_data_url = f'{base_url}/data'
-    testing_set_size=10
+    testing_set_size=2
     
     _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
                            out_path=base_data_url+'/sliced_videos_testing/',
                            snap_out_path=base_data_url+'/sliced_video_snapshots/')
     
     testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
+    print(testing_vids)
     _testing_obj.slice_all_video(testing_vids)
-    
+
+    url = 'http://localhost:{0}/search'
+    num_servers = 2
     ##process each testing snaps folder and get the result
-    _testing_obj.process_testing_snap_folders(inp_path=base_data_url+'/sliced_video_snapshots/')
+    # _testing_obj.process_testing_snap_folders(inp_path=base_data_url+'/sliced_video_snapshots/')
+    # df = _testing_obj.test_run(base_data_url + '/sliced_video_snapshots/Labrinth - Jealous/', url, num_servers)
+    # df = _testing_obj.test_run(base_data_url + '/sliced_video_snapshots/Luis Fonsi - Despacito ft/', url, num_servers)
+
+    df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers)
+    print(df.head())

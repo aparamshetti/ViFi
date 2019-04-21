@@ -32,7 +32,7 @@ class StartSearchServices:
             t.start()
 
         for one_process in processes:
-            one_process.join(1)
+            one_process.join()
 
 
 if __name__ == '__main__':
