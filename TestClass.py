@@ -201,18 +201,19 @@ class TestClass:
             if len(result) != 0:
                 matching_frame_results.extend(result)
 
-        return self.convert_to_df(matching_frame_results)
+        return self.convert_to_df(matching_frame_results,"dummy")
 
-    def convert_to_df(self, matching_frame_results):
+    def convert_to_df(self, matching_frame_results, actual):
         df = pd.DataFrame.from_records(matching_frame_results, columns=['video_id', 'similarity'])
-        print(df.head())
         df = df.groupby('video_id').similarity.agg(['sum', 'count']).reset_index()
         df['number_frames'] = len(matching_frame_results)
+        df['score'] = df['sum'] / df['number_frames']
+        df.sort_values(by='score', ascending=False, inplace=True)
         df['predicted'] = self._video_dict[df['video_id'][0]]
         df.drop(labels=['video_id'], axis=1)
-        df['score'] = df['sum'] / df['number_frames']
-
-        df.sort_values(by='score', ascending=False, inplace=True)
+        
+        print(df.head())
+        
         
         return df
 
@@ -238,7 +239,7 @@ class TestClass:
         base_url = 'data'
         Index = IndexBuilder('model.h5', base_url + '\snapshots', 'resources')
     
-        print(test_files)
+
         for t in test_files:
             actuals.append(t)
             images = glob.glob(os.path.join(self.test_snap_out_path,t)+"/*.jpg")
@@ -252,30 +253,47 @@ class TestClass:
                         results.append([ans_vec[0].split('_')[0],c])
                 
             all_results.append(results)
+            
+        try:
+            os.mkdir('data/test_answers')
+        except:
+            pass
         
-        data_frames = []
-        
-        for res in all_results:
-            print("==================================")
-            print(res)
-            print("=============Done=================")
-            data_frames.append(self.convert_to_df(res))
-        
-        final_df = pd.DataFrame(columns=['actual', 'precision', 'recall', 'is_first'])
+        for ind,test in enumerate(test_files):
+            if len(all_results[ind]) > 0:
+                df = pd.DataFrame(all_results[ind],columns=["video_id","cosine"]).fillna(0)
+                df_new = df.groupby("video_id")["cosine"].agg(['mean','count']).reset_index()
+                for i in range(df_new.shape[0]):
+                    df_new.ix[i,"prediction"] = self._video_dict[df_new.ix[i,"video_id"]]
+                    df_new.ix[i,"score"] = df_new.ix[i,"mean"]*(df_new.ix[i,"count"])
+                
+                df_new["Actual"] = test
+                df_new.sort_values(by="score",inplace=True,ascending=False)
+                df_new.to_csv(os.path.join("data/test_answers",test+".csv"),index=False)
 
-        '''store all fingerprints and vectors as tuples in a list '''
-        for i,df in enumerate(data_frames):
-            actual = actuals[i]
-            df['actual'] = actual
-            precision = 1 if df[df['predicted'] == actual]['predicted'].count() > 0 else 0
-            recall = precision
-            top = df.loc[df['score'].idxmax()]
-            is_first = 1 if top['predicted'] == actual else 0
-
-            final_df = final_df.append(pd.DataFrame(data=[[actual, precision, recall, is_first]],
-                                                    columns=['actual', 'precision', 'recall', 'is_first']))
-
-        return final_df
+# =============================================================================
+#         data_frames = []
+#         
+#         for i,res in enumerate(all_results):
+#             if len(res) > 0:
+#                 data_frames.append(self.convert_to_df(res,actuals[i]))
+#         
+#         final_df = pd.DataFrame(columns=['actual', 'precision', 'recall', 'is_first'])
+# 
+#         '''store all fingerprints and vectors as tuples in a list '''
+#         for i,df in enumerate(data_frames):
+#             actual = actuals[i]
+#             df['actual'] = actual
+#             precision = 1 if df[df['predicted'] == actual]['predicted'].count() > 0 else 0
+#             recall = precision
+#             top = df.loc[df['score'].idxmax()]
+#             is_first = 1 if top['predicted'] == actual else 0
+# 
+#             final_df = final_df.append(pd.DataFrame(data=[[actual, precision, recall, is_first]],
+#                                                     columns=['actual', 'precision', 'recall', 'is_first']))
+#         
+#         return final_df
+# =============================================================================
     
     @staticmethod
     def main():
@@ -287,7 +305,6 @@ class TestClass:
         _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
                                out_path=base_data_url+'/sliced_videos_testing/',
                                snap_out_path=base_data_url+'/sliced_video_snapshots/')
-        print(_testing_obj.test_snap_out_path)
         
        # testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
        # _testing_obj.slice_all_video(testing_vids)
@@ -301,8 +318,8 @@ class TestClass:
         # df = _testing_obj.test_run(base_data_url + '/sliced_video_snapshots/Luis Fonsi - Despacito ft/', url, num_servers)
 
         #df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers)
-        df = _testing_obj.run_local()
-        print(df.head())
+        _testing_obj.run_local()
+        #print(df.head())
 
 
 if __name__ =="__main__":
