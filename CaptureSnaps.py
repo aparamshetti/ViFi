@@ -33,14 +33,15 @@ logger.addHandler(file_handler)
 
 
 class CaptureSnapshots:
-    def __init__(self,input_path,output_path,per_sec_frame_flag=True):
+    def __init__(self,input_path,output_path,per_sec_frame_flag=True,local=True):
         self.input_path=input_path
         self.generate_output_path(output_path)
         self.output_path=output_path
-        completed_video_path=input_path.replace('videos','completed_videos')
-        self.generate_output_path(completed_video_path)
-        self.completed_video_path=completed_video_path
-        
+        if local:
+            completed_video_path=input_path.replace('videos','completed_videos')
+            self.generate_output_path(completed_video_path)
+            self.completed_video_path=completed_video_path
+            
         self.common_video_snap_name='video'
         self.output_shape1=640   #output dimensions first size
         self.output_shape2=480  #output dimensions second size

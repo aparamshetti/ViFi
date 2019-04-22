@@ -8,6 +8,7 @@ import os
 import logging
 from YoutubeDownloader import YoutubeDownloader
 from CaptureSnaps import CaptureSnapshots
+from IndexBuilder import IndexBuilder
 
 logger=logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -48,4 +49,6 @@ class Main:
 if __name__=='__main__':
     _main=Main()
     _main.build_folder_structure()
-    _main.generate_dataset()
+    #_main.generate_dataset()
+    IndexBuilder.main()
+    

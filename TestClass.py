@@ -5,7 +5,7 @@ Created on Tue Apr  9 20:07:09 2019
 @author: Sayed Inamdar
 """
 import os
-#from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import fnmatch
 from CaptureSnaps import CaptureSnapshots
 import random
@@ -37,7 +37,7 @@ logger.addHandler(file_handler)
 class TestClass:
     '''cropped_vid_len is length of sliced video default is 10'''
     def __init__(self,inp_path,out_path,snap_out_path,use_server = False,cropped_vid_len=10):
-        #checking if the inp and output paths are present if not create them
+        # checking if the inp and output paths are present if not create them
         self.generate_output_path(inp_path)
         self.generate_output_path(out_path)
         self.generate_output_path(snap_out_path)
@@ -74,7 +74,7 @@ class TestClass:
         print(f'End time {end_time}')
         #check if video length is 
         output_file_name=video_name.split('.')
-        ffmpeg_extract_subclip (self.input_path+video_name, start_time, end_time, targetname=self.output_path+output_file_name[0]+self.file_name_appended)
+        ffmpeg_extract_subclip(self.input_path+video_name, start_time, end_time, targetname=self.output_path+output_file_name[0]+self.file_name_appended)
     
     def get_random_start_time(self,vid_length):
         start_time=0
@@ -88,7 +88,7 @@ class TestClass:
     
     def slice_all_video(self,video_list):
         # Instatiating CaptureSnaps
-        _capture_snapshots=CaptureSnapshots(per_sec_frame_flag=False, input_path=self.input_path, output_path=self.output_path)
+        _capture_snapshots=CaptureSnapshots(per_sec_frame_flag=False, input_path=self.input_path, output_path=self.output_path,local=False)
         
         for video_url in video_list:
             logger.info("\nProcessing video : {}".format(video_url))
@@ -99,6 +99,7 @@ class TestClass:
             ##create a new folder for the video snaps and put all snaps inside that
             vid_name=video_url.split('.')
             new_snap_out_path=self.test_snap_out_path+vid_name[0]+'/'
+            
             if not os.path.exists(new_snap_out_path):
                 os.makedirs(new_snap_out_path)
             
@@ -109,6 +110,7 @@ class TestClass:
         list_of_all_files = os.listdir(self.input_path)
         all_videos=[]
         pattern = "*.mp4"
+        imag_vid_list=self.load_images_list_tr()
         
         for file in list_of_all_files:  
             if fnmatch.fnmatch(file, pattern):
@@ -121,12 +123,20 @@ class TestClass:
         
         while len(picked_videos_numbers) < test_size:
             num=random.randint(0,len(all_videos)-1)
-            if num not in picked_videos_numbers:
+            if (num not in picked_videos_numbers) and (all_videos[num][:-4] not in imag_vid_list):
                 picked_videos_numbers.append(num)
-            
-        
+            else:
+                logger.warning(f"\n\n---------------CLASHHHHHHHHHHH-----{all_videos[num][:-4]}--------------------\n")
+                
         picked_videos=[ all_videos[vid_num] for vid_num in picked_videos_numbers ]
         return picked_videos
+
+
+    def load_images_list_tr(self):
+        with open('./resources/image_videos.txt','r') as f:
+            ig_vid_list=f.readlines()
+        ig_vid_list=[s.replace('\n', '') for s in ig_vid_list]
+        return ig_vid_list
 
     # Processes all the frames and hits the URl to get the Response and returns a list indicating final prediction ranking
     def process_testing_snap_folders(self,inp_path):
@@ -162,30 +172,28 @@ class TestClass:
 
         index_builder = IndexBuilder('model.h5', input_path, 'resources')
 
-        with open('resources/video_dict.json', 'r') as f:
-            video_dict = json.load(f)
-
         data_frame = pd.DataFrame(columns=['actual', 'precision', 'recall', 'is_first'])
 
         '''store all fingerprints and vectors as tuples in a list '''
         for dir in dirs:
             actual = os.path.split(dir)[-1]
             df = self._run(index_builder, dir, url, num_servers)
-            df['actual'] = actual
 
-            precision = 1 if df[df['predicted'] == actual]['predicted'].count() > 0 else 0
-            recall = precision
-            top = df.loc[df['score'].idxmax()]
-            is_first = 1 if top['predicted'] == actual else 0
+            if df is not None:
+                df['actual'] = actual
 
-            data_frame = data_frame.append(pd.DataFrame(data=[[actual, precision, recall, is_first]],
-                                                        columns=['actual', 'precision', 'recall', 'is_first']))
+                precision = 1 if df[df['predicted'] == actual]['predicted'].count() > 0 else 0
+                recall = precision
+                top = df.loc[df['score'].idxmax()]
+                is_first = 1 if top['predicted'] == actual else 0
+
+                data_frame = data_frame.append(pd.DataFrame(data=[[actual, precision, recall, is_first]],
+                                                            columns=['actual', 'precision', 'recall', 'is_first']))
 
         return data_frame
 
     def test_run(self, input_path, url, num_servers, ):
         index_builder = IndexBuilder('model.h5', input_path, 'resources')
-
         actual = input_path.split()[-1]
         df = self._run(index_builder, input_path, url, num_servers)
         df['actual'] = actual
@@ -201,7 +209,13 @@ class TestClass:
             if len(result) != 0:
                 matching_frame_results.extend(result)
 
-        return self.convert_to_df(matching_frame_results,"dummy")
+
+        df = None
+        if len(matching_frame_results) > 0:
+            df = self.convert_to_df(matching_frame_results)
+
+        return df
+
 
     def convert_to_df(self, matching_frame_results, actual):
         df = pd.DataFrame.from_records(matching_frame_results, columns=['video_id', 'similarity'])
@@ -213,7 +227,6 @@ class TestClass:
         df.drop(labels=['video_id'], axis=1)
         
         print(df.head())
-        
         
         return df
 
@@ -230,6 +243,7 @@ class TestClass:
         
         return master, video_dict
     
+
     def run_local(self):
         test_files = os.listdir(self.test_snap_out_path)
     
@@ -237,20 +251,20 @@ class TestClass:
         actuals = []
         
         base_url = 'data'
-        Index = IndexBuilder('model.h5', base_url + '\snapshots', 'resources')
+        index = IndexBuilder('model.h5', base_url + '\snapshots', 'resources')
     
 
         for t in test_files:
             actuals.append(t)
-            images = glob.glob(os.path.join(self.test_snap_out_path,t)+"/*.jpg")
+            images = glob.glob(os.path.join(_obj.test_snap_out_path, t)+"/*.jpg")
             results = []
             for img in images:
-                fp,query_vec = Index.finger_print(img)
-                if str(fp) in self._master:
-                    vec_list = self._master[str(fp)]
+                fp,query_vec = index.finger_print(img)
+                if str(fp) in _obj._master:
+                    vec_list = _obj._master[str(fp)]
                     for ans_vec in vec_list:
-                        c = self._cosine_similarity(query_vec,ans_vec[1])
-                        results.append([ans_vec[0].split('_')[0],c])
+                        c = _obj._cosine_similarity(query_vec, ans_vec[1])
+                        results.append([ans_vec[0].split('_')[0], c])
                 
             all_results.append(results)
             
@@ -259,6 +273,7 @@ class TestClass:
         except:
             pass
         
+
         for ind,test in enumerate(test_files):
             if len(all_results[ind]) > 0:
                 df = pd.DataFrame(all_results[ind],columns=["video_id","cosine"]).fillna(0)
@@ -294,23 +309,29 @@ class TestClass:
 #         
 #         return final_df
 # =============================================================================
+
+
     
     @staticmethod
     def main():
         #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
         base_url='.'
         base_data_url = f'{base_url}/data'
-        testing_set_size=2
+        testing_set_size=100
+        logger.info('Started testing the app')
         
         _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
                                out_path=base_data_url+'/sliced_videos_testing/',
                                snap_out_path=base_data_url+'/sliced_video_snapshots/')
-        
-       # testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
-       # _testing_obj.slice_all_video(testing_vids)
 
+        print(_testing_obj.test_snap_out_path)
+        '''
+        testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
+        _testing_obj.slice_all_video(testing_vids)
+        '''
+        
         url = 'http://localhost:{0}/search'
-        num_servers = 2
+        num_servers = 6
 
         ##process each testing snaps folder and get the result
         # _testing_obj.process_testing_snap_folders(inp_path=base_data_url+'/sliced_video_snapshots/')
@@ -318,10 +339,16 @@ class TestClass:
         # df = _testing_obj.test_run(base_data_url + '/sliced_video_snapshots/Luis Fonsi - Despacito ft/', url, num_servers)
 
         #df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers)
-        _testing_obj.run_local()
+
+        logger.info('Running local testing')
+        #df = _testing_obj.run_local()
+        
         #print(df.head())
+        #df.to_csv('resources/test_results.csv', index=False)
+        logger.info("Completed the Test Class")
+        return _testing_obj
 
 
-if __name__ =="__main__":
-    TestClass.main()
 
+if __name__ == "__main__":
+    _obj=TestClass.main()
