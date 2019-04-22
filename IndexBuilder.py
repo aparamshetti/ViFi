@@ -14,7 +14,23 @@ from collections import defaultdict
 from keras import backend
 from keras import Model
 from keras.models import load_model
+import logging
 
+logger=logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+file_name = str(__file__)
+sep=''
+if '/' in file_name:
+    sep='/'
+else:
+    sep='\\'
+file_name=file_name.split(sep)[-1].replace('.py','.log')
+
+formatter=logging.Formatter('%(asctime)s:%(filename)s:%(message)s')
+file_handler = logging.FileHandler(f'./logs/{file_name}')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 class IndexBuilder:
     def __init__(self, model_filepath, input_dir, resource_dir, layer_name='vector_layer', dtype='float16'):
@@ -148,10 +164,14 @@ class IndexBuilder:
         self._create_master_index(self._resource_dir + "/dictionaries/")
         self._create_n_dictionaries("resources/dictionaries/", "master", number_of_servers=2)
 
-
+    @staticmethod
+    def main():
+        logger.info('Started Index Builder')
+        base_url = 'data'
+        start_time = time.time()
+        IndexBuilder('model.h5', base_url + '\snapshots', 'resources').run()
+        print('total time taken {}'.format(time.time() - start_time))
+        logger.info('Finished Building Index')
+        
 if __name__ == '__main__':
-    base_url = 'data'
-
-    start_time = time.time()
-    IndexBuilder('model.h5', base_url + '\snapshots', 'resources').run()
-    print('total time taken {}'.format(time.time() - start_time))
+    IndexBuilder.main()
