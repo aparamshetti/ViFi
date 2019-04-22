@@ -16,6 +16,7 @@ from IndexBuilder import IndexBuilder
 from ClientService import ClientService
 import logging
 import numpy as np
+import math
 
 logger=logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -245,16 +246,13 @@ class TestClass:
 
         pattern = re.compile('.*\.jpg')
         for t in test_files:
-            print(t)
             actuals.append(t)
             filepath = os.path.join(self.test_snap_out_path, t)
             images = [os.path.join(filepath, f) for f in os.listdir(filepath)
                       if os.path.isfile(os.path.join(filepath, f)) and pattern.findall(f)]
-            print(len(images))
             results = []
             for img in images:
                 fp, query_vec = index.finger_print(img)
-                print(fp)
                 if str(fp) in self._master:
                     vec_list = self._master[str(fp)]
                     for ans_vec in vec_list:
@@ -267,15 +265,15 @@ class TestClass:
             if len(all_results[ind]) > 0:
                 df = pd.DataFrame(all_results[ind], columns=["video_id", "cosine"]).fillna(0)
                 df_new = df.groupby("video_id")["cosine"].agg(['mean', 'count']).reset_index()
+                
                 for i in range(df_new.shape[0]):
                     df_new.ix[i,"prediction"] = self._video_dict[df_new.ix[i,"video_id"]]
                     df_new.ix[i,"score"] = df_new.ix[i,"mean"]*(df_new.ix[i,"count"])
-                
                 df_new["Actual"] = test
                 df_new.sort_values(by="score",inplace=True,ascending=False)
                 df_new.to_csv(os.path.join("data/test_answers",test+".csv"),index=False)
                 
-        final_df = pd.DataFrame(columns=['actual','predicted','precision','recall','accuracy'])
+        final_df = pd.DataFrame(columns=['actual','predicted','precision','recall','accuracy','ndcg'])
         for file in os.listdir("data/test_answers/"):
             if fnmatch.fnmatch(os.path.join('data/test_answers',file), '*.csv'):
                 df = pd.read_csv(os.path.join('data/test_answers',file))
@@ -283,18 +281,21 @@ class TestClass:
                     if df.ix[i,"prediction"] == df.ix[i,"Actual"]:
                         precision = 1
                         recall = 1
+                        ndcg = 1/math.log(i+1,2)
                         break
                     else:
                         precision = 0
                         recall = 0
+                        ndcg = 0
+                
                 if df.ix[0,"prediction"] == df.ix[0,"Actual"]:
                     accuracy = 1
                 else:
-                    accuracy = 0
-                    
+                    accuracy = 0                   
+
                 
-            final_df = final_df.append(pd.DataFrame(data=[[df.ix[0,"Actual"],df.ix[0,"prediction"], precision, recall, accuracy]],
-                                                    columns=['actual','predicted', 'precision', 'recall', 'accuracy']))
+            final_df = final_df.append(pd.DataFrame(data=[[df.ix[0,"Actual"],df.ix[0,"prediction"], precision, recall, accuracy,ndcg]],
+                                                    columns=['actual','predicted', 'precision', 'recall', 'accuracy','ndcg']))
         final_df.to_csv(os.path.join('data/test_answers',"final.csv"),index=False)
 
         return final_df
