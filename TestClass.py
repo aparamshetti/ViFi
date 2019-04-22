@@ -5,7 +5,7 @@ Created on Tue Apr  9 20:07:09 2019
 @author: Sayed Inamdar
 """
 import os
-from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+#from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import fnmatch
 from CaptureSnaps import CaptureSnapshots
 import random
@@ -285,30 +285,30 @@ class TestClass:
                 df_new["Actual"] = test
                 df_new.sort_values(by="score",inplace=True,ascending=False)
                 df_new.to_csv(os.path.join("data/test_answers",test+".csv"),index=False)
+                
+        final_df = pd.DataFrame(columns=['actual','predicted','precision','recall','accuracy'])
+        for file in os.listdir("data/test_answers/"):
+            if fnmatch.fnmatch(os.path.join('data/test_answers',file), '*.csv'):
+                df = pd.read_csv(os.path.join('data/test_answers',file))
+                for i in range(min(10,df.shape[0])):
+                    if df.ix[i,"prediction"] == df.ix[i,"Actual"]:
+                        precision = 1
+                        recall = 1
+                        break
+                    else:
+                        precision = 0
+                        recall = 0
+                if df.ix[0,"prediction"] == df.ix[0,"Actual"]:
+                    accuracy = 1
+                else:
+                    accuracy = 0
+                    
+                
+            final_df = final_df.append(pd.DataFrame(data=[[df.ix[0,"Actual"],df.ix[0,"prediction"], precision, recall, accuracy]],
+                                                    columns=['actual','predicted', 'precision', 'recall', 'accuracy']))
+        final_df.to_csv(os.path.join('data/test_answers',"final.csv"),index=False)
 
-# =============================================================================
-#         data_frames = []
-#         
-#         for i,res in enumerate(all_results):
-#             if len(res) > 0:
-#                 data_frames.append(self.convert_to_df(res,actuals[i]))
-#         
-#         final_df = pd.DataFrame(columns=['actual', 'precision', 'recall', 'is_first'])
-# 
-#         '''store all fingerprints and vectors as tuples in a list '''
-#         for i,df in enumerate(data_frames):
-#             actual = actuals[i]
-#             df['actual'] = actual
-#             precision = 1 if df[df['predicted'] == actual]['predicted'].count() > 0 else 0
-#             recall = precision
-#             top = df.loc[df['score'].idxmax()]
-#             is_first = 1 if top['predicted'] == actual else 0
-# 
-#             final_df = final_df.append(pd.DataFrame(data=[[actual, precision, recall, is_first]],
-#                                                     columns=['actual', 'precision', 'recall', 'is_first']))
-#         
-#         return final_df
-# =============================================================================
+        return final_df
 
 
     
@@ -341,9 +341,9 @@ class TestClass:
         #df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers)
 
         logger.info('Running local testing')
-        #df = _testing_obj.run_local()
+        df = _testing_obj.run_local()
         
-        #print(df.head())
+        print(df.head())
         #df.to_csv('resources/test_results.csv', index=False)
         logger.info("Completed the Test Class")
         return _testing_obj
