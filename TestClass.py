@@ -5,7 +5,7 @@ Created on Tue Apr  9 20:07:09 2019
 @author: Sayed Inamdar
 """
 import os
-#from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import fnmatch
 from CaptureSnaps import CaptureSnapshots
 import random
@@ -74,7 +74,7 @@ class TestClass:
         print(f'End time {end_time}')
         #check if video length is 
         output_file_name=video_name.split('.')
-        ffmpeg_extract_subclip (self.input_path+video_name, start_time, end_time, targetname=self.output_path+output_file_name[0]+self.file_name_appended)
+        ffmpeg_extract_subclip(self.input_path+video_name, start_time, end_time, targetname=self.output_path+output_file_name[0]+self.file_name_appended)
     
     def get_random_start_time(self,vid_length):
         start_time=0
@@ -88,7 +88,7 @@ class TestClass:
     
     def slice_all_video(self,video_list):
         # Instatiating CaptureSnaps
-        _capture_snapshots=CaptureSnapshots(per_sec_frame_flag=False, input_path=self.input_path, output_path=self.output_path)
+        _capture_snapshots=CaptureSnapshots(per_sec_frame_flag=False, input_path=self.input_path, output_path=self.output_path,local=False)
         
         for video_url in video_list:
             logger.info("\nProcessing video : {}".format(video_url))
@@ -99,6 +99,7 @@ class TestClass:
             ##create a new folder for the video snaps and put all snaps inside that
             vid_name=video_url.split('.')
             new_snap_out_path=self.test_snap_out_path+vid_name[0]+'/'
+            
             if not os.path.exists(new_snap_out_path):
                 os.makedirs(new_snap_out_path)
             
@@ -109,6 +110,7 @@ class TestClass:
         list_of_all_files = os.listdir(self.input_path)
         all_videos=[]
         pattern = "*.mp4"
+        imag_vid_list=self.load_images_list_tr()
         
         for file in list_of_all_files:  
             if fnmatch.fnmatch(file, pattern):
@@ -121,12 +123,20 @@ class TestClass:
         
         while len(picked_videos_numbers) < test_size:
             num=random.randint(0,len(all_videos)-1)
-            if num not in picked_videos_numbers:
+            if (num not in picked_videos_numbers) and (all_videos[num][:-4] not in imag_vid_list):
                 picked_videos_numbers.append(num)
-            
-        
+            else:
+                logger.warning(f"\n\n---------------CLASHHHHHHHHHHH-----{all_videos[num][:-4]}--------------------\n")
+                
         picked_videos=[ all_videos[vid_num] for vid_num in picked_videos_numbers ]
         return picked_videos
+
+
+    def load_images_list_tr(self):
+        with open('./resources/image_videos.txt','r') as f:
+            ig_vid_list=f.readlines()
+        ig_vid_list=[s.replace('\n', '') for s in ig_vid_list]
+        return ig_vid_list
 
     # Processes all the frames and hits the URl to get the Response and returns a list indicating final prediction ranking
     def process_testing_snap_folders(self,inp_path):
@@ -185,7 +195,6 @@ class TestClass:
 
     def test_run(self, input_path, url, num_servers, ):
         index_builder = IndexBuilder('model.h5', input_path, 'resources')
-
         actual = input_path.split()[-1]
         df = self._run(index_builder, input_path, url, num_servers)
         df['actual'] = actual
@@ -200,7 +209,6 @@ class TestClass:
         for result in list(results):
             if len(result) != 0:
                 matching_frame_results.extend(result)
-
         return self.convert_to_df(matching_frame_results)
 
     def convert_to_df(self, matching_frame_results):
@@ -213,7 +221,6 @@ class TestClass:
         df['score'] = df['sum'] / df['number_frames']
 
         df.sort_values(by='score', ascending=False, inplace=True)
-        
         return df
 
     @staticmethod
@@ -229,6 +236,7 @@ class TestClass:
         
         return master, video_dict
     
+
     def run_local(self):
         test_files = os.listdir(self.test_snap_out_path)
     
@@ -282,16 +290,16 @@ class TestClass:
         #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
         base_url='.'
         base_data_url = f'{base_url}/data'
-        testing_set_size=2
+        testing_set_size=5
         
         _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
                                out_path=base_data_url+'/sliced_videos_testing/',
                                snap_out_path=base_data_url+'/sliced_video_snapshots/')
         print(_testing_obj.test_snap_out_path)
         
-       # testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
-       # _testing_obj.slice_all_video(testing_vids)
-
+        testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
+        _testing_obj.slice_all_video(testing_vids)
+        
         url = 'http://localhost:{0}/search'
         num_servers = 2
 
@@ -302,9 +310,8 @@ class TestClass:
 
         #df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers)
         df = _testing_obj.run_local()
-        print(df.head())
+        #print(df.head())
 
 
 if __name__ =="__main__":
     TestClass.main()
-
