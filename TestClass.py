@@ -281,22 +281,22 @@ class TestClass:
                 df_new["Actual"] = test
                 df_new.sort_values(by="score",inplace=True,ascending=False)
                 df_new.to_csv(os.path.join("data/test_answers",test+".csv"),index=False)
+                
 
         with open('./resources/urls.json','r') as f:
             url_dict=json.load(f)
         
         final_df = pd.DataFrame(columns=['actual','predicted','precision','recall','accuracy','ndcg','urls'])
         for file in os.listdir("data/test_answers/"):
-            if fnmatch.fnmatch(os.path.join('data/test_answers',file), '*.csv'):
+            if fnmatch.fnmatch(os.path.join('data/test_answers',file), '*.csv') and 'final.csv' not in file:
+                print("File name is ",file)
                 df = pd.read_csv(os.path.join('data/test_answers',file))
                 for i in range(min(10,df.shape[0])):
                     if df.ix[i,"prediction"] == df.ix[i,"Actual"]:
                         precision = 1
                         recall = 1
-                        try:
-                            ndcg = 1/math.log(i+1,2)
-                        except:
-                            ndcg=-1
+                        ndcg = 1/(1 if i is 0 else math.log(i+1,2))
+                        break
                     else:
                         precision = 0
                         recall = 0
@@ -306,40 +306,20 @@ class TestClass:
                     accuracy = 1
                 else:
                     accuracy = 0                   
-
+            
             predicted=df.ix[0,"prediction"]
+            #url_regex=":|;><#$%,.'\"\\\""
+            #pred=''.join(e for e in predicted if e not in url_regex)
             url=url_dict.get(predicted,None)
+            
+            if url is None:
+                print(f'Predicted Name {predicted}')
             final_df = final_df.append(pd.DataFrame(data=[[df.ix[0,"Actual"],df.ix[0,"prediction"], precision, recall, accuracy,ndcg,url]],
                                                     columns=['actual','predicted', 'precision', 'recall', 'accuracy','ndcg','urls']))
         final_df.to_csv(os.path.join('data/test_answers',"final.csv"),index=False)
 
         return final_df
 
-#>>>>>>> a20c3f9795444e600ce4d06624c038bd232484dd
-
-                
-        # data_frames = []
-        #
-        # for i, res in enumerate(all_results):
-        #     if len(res) > 0:
-        #         print(actuals[i])
-        #         data_frames.append(self.convert_to_df(res))
-        #
-        # final_df = pd.DataFrame(columns=['actual', 'precision', 'recall', 'is_first'])
-        #
-        # '''store all fingerprints and vectors as tuples in a list '''
-        # for i, df in enumerate(data_frames):
-        #     actual = actuals[i]
-        #     df['actual'] = actual
-        #     precision = 1 if df[df['predicted'] == actual]['predicted'].count() > 0 else 0
-        #     recall = precision
-        #     top = df.loc[df['score'].idxmax()]
-        #     is_first = 1 if top['predicted'] == actual else 0
-        #
-        #     final_df = final_df.append(pd.DataFrame(data=[[actual, precision, recall, is_first]],
-        #                                             columns=['actual', 'precision', 'recall', 'is_first']))
-
-        # return final_df
     
     def build_test_set(self):
         # print(_testing_obj.test_snap_out_path)
@@ -364,11 +344,10 @@ class TestClass:
             df = _testing_obj.run_local()
             print(df.head())
             df.to_csv('resources/test_results.csv', index=False)
-           #df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers) 
+
         return df
     
-    def launch_video(self,df,chrome_path=''):
-        #url='https://www.youtube.com/watch?v=E817KHhU42Y'
+    def launch_video(self,df,chrome_path='https://www.youtube.com/watch?v=TcMBFSGVi1c'):
         try:
             url=df.iloc[0]['urls']
             if chrome_path is '':
@@ -378,8 +357,22 @@ class TestClass:
             print(f'Could Not Launch the vide {Exception}')
             logger.error(f'Exception caugth '+str(Exception))
 
+    @staticmethod
+    def update_url_dict():
+        regex=":|;><#$%,.'\"\\\""
+        with open('./resources/urls.json','r') as f:
+            url_dict=json.load(f)
+        
+        for i in url_dict.keys():
+            new_i=''.join(e for e in i if e not in regex)
+            url_dict[new_i]=url_dict.pop(i)
+            
+        with open('./resources/urls.json', 'w') as fp:  
+            json.dump(url_dict, fp)
+        
+
+
 if __name__ == "__main__":
-    #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
     base_url='.'
     base_data_url = f'{base_url}/data'
     testing_set_size=100
@@ -389,5 +382,9 @@ if __name__ == "__main__":
                            snap_out_path=base_data_url+'/sliced_video_snapshots/')
     
     #_testing_obj.build_test_set()
+    
+    #This method is called to fix the naming convention between the url dict and the names in snapshots
+    #TestClass.update_url_dict()
+    
     df=_testing_obj.test_videos()
     _testing_obj.launch_video(df)
