@@ -281,7 +281,7 @@ class TestClass:
                     if df.ix[i,"prediction"] == df.ix[i,"Actual"]:
                         precision = 1
                         recall = 1
-                        ndcg = 1/math.log(i+1,2)
+                        ndcg = 1/(1 if i is 0 else math.log(i+1,2))
                         break
                     else:
                         precision = 0
