@@ -16,6 +16,8 @@ from IndexBuilder import IndexBuilder
 from ClientService import ClientService
 import logging
 import numpy as np
+import math
+import webbrowser
 
 logger=logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -50,6 +52,7 @@ class TestClass:
         self.cropped_vid_len=cropped_vid_len
         self.index_path = 'resources/dictionaries/'
         self.video_dict_path = 'resources'
+        self.chrome_path='C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
         if not use_server:
             self._master, self._video_dict = self.load_master_dict()
@@ -266,14 +269,55 @@ class TestClass:
             if len(all_results[ind]) > 0:
                 df = pd.DataFrame(all_results[ind], columns=["video_id", "cosine"]).fillna(0)
                 df_new = df.groupby("video_id")["cosine"].agg(['mean', 'count']).reset_index()
+#<<<<<<< HEAD
+                #for i in range(df_new.shape[0]):
+                #    df_new.ix[i, "prediction"] = self._video_dict[df_new.ix[i, "video_id"]]
+                 #   df_new.ix[i, "score"] = df_new.ix[i, "mean"] * (df_new.ix[i, "count"])
+#=======
+                
                 for i in range(df_new.shape[0]):
-                    df_new.ix[i, "prediction"] = self._video_dict[df_new.ix[i, "video_id"]]
-                    df_new.ix[i, "score"] = df_new.ix[i, "mean"] * (df_new.ix[i, "count"])
-
+                    df_new.ix[i,"prediction"] = self._video_dict[df_new.ix[i,"video_id"]]
+                    df_new.ix[i,"score"] = df_new.ix[i,"mean"]*(df_new.ix[i,"count"])
                 df_new["Actual"] = test
-                df_new.sort_values(by="score", inplace=True, ascending=False)
-                df_new.to_csv(os.path.join('data', test + ".csv"), index=False)
+                df_new.sort_values(by="score",inplace=True,ascending=False)
+                df_new.to_csv(os.path.join("data/test_answers",test+".csv"),index=False)
 
+        with open('./resources/urls.json','r') as f:
+            url_dict=json.load(f)
+        
+        final_df = pd.DataFrame(columns=['actual','predicted','precision','recall','accuracy','ndcg','urls'])
+        for file in os.listdir("data/test_answers/"):
+            if fnmatch.fnmatch(os.path.join('data/test_answers',file), '*.csv'):
+                df = pd.read_csv(os.path.join('data/test_answers',file))
+                for i in range(min(10,df.shape[0])):
+                    if df.ix[i,"prediction"] == df.ix[i,"Actual"]:
+                        precision = 1
+                        recall = 1
+                        try:
+                            ndcg = 1/math.log(i+1,2)
+                        except:
+                            ndcg=-1
+                    else:
+                        precision = 0
+                        recall = 0
+                        ndcg = 0
+                
+                if df.ix[0,"prediction"] == df.ix[0,"Actual"]:
+                    accuracy = 1
+                else:
+                    accuracy = 0                   
+
+            predicted=df.ix[0,"prediction"]
+            url=url_dict.get(predicted,None)
+            final_df = final_df.append(pd.DataFrame(data=[[df.ix[0,"Actual"],df.ix[0,"prediction"], precision, recall, accuracy,ndcg,url]],
+                                                    columns=['actual','predicted', 'precision', 'recall', 'accuracy','ndcg','urls']))
+        final_df.to_csv(os.path.join('data/test_answers',"final.csv"),index=False)
+
+        return final_df
+
+#>>>>>>> a20c3f9795444e600ce4d06624c038bd232484dd
+
+                
         # data_frames = []
         #
         # for i, res in enumerate(all_results):
@@ -297,35 +341,53 @@ class TestClass:
 
         # return final_df
     
-    @staticmethod
-    def main():
-        #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
-        base_url='.'
-        base_data_url = f'{base_url}/data'
-        testing_set_size=100
-        
-        _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
-                               out_path=base_data_url+'/sliced_videos_testing/',
-                               snap_out_path=base_data_url+'/sliced_video_snapshots/')
+    def build_test_set(self):
         # print(_testing_obj.test_snap_out_path)
-
-        #testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
-        # _testing_obj.slice_all_video(testing_vids)
-
+        testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
+        testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
+        self.slice_all_video(testing_vids)
+        
+    
+    def test_videos(self,flag='local'):
         url = 'http://localhost:{0}/search'
         num_servers = 2
-
-        ##process each testing snaps folder and get the result
-        # _testing_obj.process_testing_snap_folders(inp_path=base_data_url+'/sliced_video_snapshots/')
-        # df = _testing_obj.test_run(base_data_url + '/sliced_video_snapshots/Labrinth - Jealous/', url, num_servers)
-        # df = _testing_obj.test_run(base_data_url + '/sliced_video_snapshots/Luis Fonsi - Despacito ft/', url, num_servers)
-
-        # df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers)
-        df = _testing_obj.run_local()
-        print(df.head())
-        df.to_csv('resources/test_results.csv', index=False)
-        return _testing_obj
+        
+        if flag.lower()=='server':
+            pass
+            ##process each testing snaps folder and get the result
+            # _testing_obj.process_testing_snap_folders(inp_path=base_data_url+'/sliced_video_snapshots/')
+            # df = _testing_obj.test_run(base_data_url + '/sliced_video_snapshots/Labrinth - Jealous/', url, num_servers)
+            # df = _testing_obj.test_run(base_data_url + '/sliced_video_snapshots/Luis Fonsi - Despacito ft/', url, num_servers)
+    
+            # df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers)
+        else:
+            df = _testing_obj.run_local()
+            print(df.head())
+            df.to_csv('resources/test_results.csv', index=False)
+           #df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers) 
+        return df
+    
+    def launch_video(self,df,chrome_path=''):
+        #url='https://www.youtube.com/watch?v=E817KHhU42Y'
+        try:
+            url=df.iloc[0]['urls']
+            if chrome_path is '':
+                chrome_path=self.chrome_path
+            webbrowser.get(chrome_path).open(url)
+        except:
+            print(f'Could Not Launch the vide {Exception}')
+            logger.error(f'Exception caugth '+str(Exception))
 
 if __name__ == "__main__":
-    _obj=TestClass.main()
-
+    #base_url=os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
+    base_url='.'
+    base_data_url = f'{base_url}/data'
+    testing_set_size=100
+    
+    _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
+                           out_path=base_data_url+'/sliced_videos_testing/',
+                           snap_out_path=base_data_url+'/sliced_video_snapshots/')
+    
+    #_testing_obj.build_test_set()
+    df=_testing_obj.test_videos()
+    _testing_obj.launch_video(df)

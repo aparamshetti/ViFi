@@ -4,7 +4,6 @@ import time
 import json
 import pickle
 import numpy as np
-import glob
 
 import os
 from os import path
@@ -123,12 +122,13 @@ class IndexBuilder:
                 json.dump(inverted_index, f)
 
     def _create_master_index(self, relative_path):
-        
+        pattern = re.compile('.*_submaster\.json')
         dict_directories = [os.path.join(self._base, relative_path, x) for x in os.listdir(relative_path)
                             if os.path.isdir(os.path.join(relative_path, x))]
         index_files = []
         for d in dict_directories:
-            index_files.extend(glob.glob(d + "\\*submaster.json"))
+            index_files.extend([os.path.join(d, f) for f in os.listdir(d)
+                                if os.path.isfile(os.path.join(d, f)) and pattern.findall(f)])
     
         self._merge_inverted_indices(index_files, relative_path)
         
@@ -140,8 +140,10 @@ class IndexBuilder:
     def _create_n_dictionaries(master_path, write_path, number_of_servers=6):
         if not path.isdir(master_path):
             raise FileNotFoundError("The specified input dir '{}' doesn't exist.".format(master_path))
-        
-        master_dictionary_path = glob.glob(master_path+"//*master.json")[0]
+
+        pattern = re.compile('.*master\.json')
+        master_dictionary_path = [os.path.join(master_path, f) for f in os.listdir(master_path)
+                                  if os.path.isfile(os.path.join(master_path, f)) and pattern.findall(f)][0]
 
         if not path.isdir(master_path):
             raise FileNotFoundError("No master file exists in {}".format(master_path))
