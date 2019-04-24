@@ -1,8 +1,9 @@
 ﻿# ViFi - All you need is 10, doesn’t matter where and when!
 
-
-The project structure is as follows:
-ViFi/
+Project Structure
+---------------
+```html
+ViFi
 |--- CaptureSnaps.py
 |--- ClientService.py
 |--- Flask_VIFI.py
@@ -18,12 +19,12 @@ ViFi/
 |--- logs
 |--- master
 |--- data
-|   |--- completed_videos
-|   |--- sliced_video_snapshots
-|   |--- sliced_videos_testing
-|   |--- snapshots
-|   |--- test_answers
-|   |--- videos
+   |--- completed_videos
+   |--- sliced_video_snapshots
+   |--- sliced_videos_testing
+   |--- snapshots
+   |--- test_answers
+   |--- videos
 |--- resources
    |--- dictionaries
    |--- PlaylistList.py
@@ -33,7 +34,26 @@ ViFi/
    |--- urls.json
    |--- vector.pkl
    |--- video_dict.json
+```
 
+Setup
+---------------
+```html
+pip install pytube
+pip install tensorflow
+pip install keras
+pip install cv2
+pip install flask
+pip install flask-restful
+pip install moviepy
+pip install numpy
+pip install pandas
+pip install fnmatch
+pip install shutil
+```
+
+How to run
+---------------
 The Main.py files generates the datasets by crawling Youtube for all the Playlists placed under resources/PlayList.py. The Main.py then builds the Index using the IndexBuilder which makes use of the resources/matrix.pkl and resources/vector.pkl files to generate the fingerprint.
 
 The data/ contains all the downloaded videos under videos/ once all the snapshots are captures from the videos the videos videos for which the snapshots are captured are then moved to the completed_videos folder. Snapshot/ folder contains all the snapshots for all the videos.
