@@ -39,5 +39,8 @@ The Main.py files generates the datasets by crawling Youtube for all the Playlis
 The data/ contains all the downloaded videos under videos/ once all the snapshots are captures from the videos the videos videos for which the snapshots are captured are then moved to the completed_videos folder. Snapshot/ folder contains all the snapshots for all the videos.The sliced_video_testing is generated during testing the application which will then pick random videos(number configurable in code) from the completed_videos/ folder randomly slice any random 10 seconds(configurable in code) portion of the video and generate the testing snapshots under sliced_videos_testing/. All the predictions are then placed under test_answers/
 
 
-The model.h5 is the trained model for the image to a vector conversion. Our Indexer is placed under /resources/dictionaries/. the resources/urls.json contains all the youtube video urls's for all the indexed videos. 
+The model.h5 is the trained model for the image to a vector conversion. The Indexer is placed under /resources/dictionaries/ after its built. the resources/urls.json contains all the youtube video urls's for all the indexed videos. 
+
+The logs/ folder contains all the logs for the entire application.
+
 
