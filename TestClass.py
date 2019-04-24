@@ -280,6 +280,7 @@ class TestClass:
                     df_new.ix[i,"score"] = df_new.ix[i,"mean"]*(df_new.ix[i,"count"])
                 df_new["Actual"] = test
                 df_new.sort_values(by="score",inplace=True,ascending=False)
+                self.generate_output_path('./data/test_answers')
                 df_new.to_csv(os.path.join("data/test_answers",test+".csv"),index=False)
                 
 
@@ -321,14 +322,14 @@ class TestClass:
         return final_df
 
     
-    def build_test_set(self):
+    def build_test_set(self,testing_set_size=1):
         # print(_testing_obj.test_snap_out_path)
-        testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
-        testing_vids=_testing_obj.random_videos_for_testing(testing_set_size)
+        testing_vids=self.random_videos_for_testing(testing_set_size)
+        testing_vids=self.random_videos_for_testing(testing_set_size)
         self.slice_all_video(testing_vids)
         
     
-    def test_videos(self,flag='local'):
+    def test_videos(self,test_video_size=1,flag='local'):
         url = 'http://localhost:{0}/search'
         num_servers = 2
         
@@ -341,13 +342,13 @@ class TestClass:
     
             # df = _testing_obj.process_testing_snaps(base_data_url + '/sliced_video_snapshots/', url, num_servers)
         else:
-            df = _testing_obj.run_local()
+            df = self.run_local()
             print(df.head())
             df.to_csv('resources/test_results.csv', index=False)
 
         return df
     
-    def launch_video(self,df,chrome_path='https://www.youtube.com/watch?v=TcMBFSGVi1c'):
+    def launch_video(self,df,chrome_path=''):
         try:
             url=df.iloc[0]['urls']
             if chrome_path is '':
@@ -375,16 +376,16 @@ class TestClass:
 if __name__ == "__main__":
     base_url='.'
     base_data_url = f'{base_url}/data'
-    testing_set_size=100
+    testing_set_size=1
     
     _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
                            out_path=base_data_url+'/sliced_videos_testing/',
                            snap_out_path=base_data_url+'/sliced_video_snapshots/')
     
-    #_testing_obj.build_test_set()
+    _testing_obj.build_test_set(testing_set_size)
     
     #This method is called to fix the naming convention between the url dict and the names in snapshots
     #TestClass.update_url_dict()
     
-    df=_testing_obj.test_videos()
+    df=_testing_obj.test_videos(testing_set_size)
     _testing_obj.launch_video(df)

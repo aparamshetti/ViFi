@@ -49,6 +49,6 @@ class Main:
 if __name__=='__main__':
     _main=Main()
     _main.build_folder_structure()
-    #_main.generate_dataset()
+    _main.generate_dataset()
     IndexBuilder.main()
     

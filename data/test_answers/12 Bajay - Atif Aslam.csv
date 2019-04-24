@@ -1,0 +1,446 @@
+video_id,mean,count,prediction,score,Actual
+0004,0.25,112,12 Bajay - Atif Aslam,28.0,12 Bajay - Atif Aslam
+0139,0.965429920017015,3,Backstreet Boys - Not For Me,2.896289760051045,12 Bajay - Atif Aslam
+0674,0.01855808925782653,53,One Direction sing Only Girl In The World - The X Factor Live Semi-Final (Full Version),0.9835787306648062,12 Bajay - Atif Aslam
+0872,0.08930138998637173,11,Shakira - Underneath Your Clothes (Official Music Video),0.982315289850089,12 Bajay - Atif Aslam
+0502,0.9799785720944737,1,Kaho Aaj Bol Do - Bol  Atif Aslam & Hadiqa Kiani  Atif Aslam  Ayub Khawar,0.9799785720944737,12 Bajay - Atif Aslam
+0725,0.0,4,Rihanna - Only Girl (In The World),0.0,12 Bajay - Atif Aslam
+0749,0.0,14,Rihanna - Whats My Name ft Drake,0.0,12 Bajay - Atif Aslam
+0747,0.0,160,Rihanna - We Found Love ft Calvin Harris,0.0,12 Bajay - Atif Aslam
+0744,0.0,14,Rihanna - Umbrella (Pepsi Smash),0.0,12 Bajay - Atif Aslam
+0742,0.0,68,Rihanna - That La La La,0.0,12 Bajay - Atif Aslam
+0737,0.0,2,Rihanna - Sell Me Candy (Control Room),0.0,12 Bajay - Atif Aslam
+0736,0.0,20,Rihanna - Say It,0.0,12 Bajay - Atif Aslam
+0734,0.0,50,Rihanna - S&M,0.0,12 Bajay - Atif Aslam
+0732,0.0,14,Rihanna - Rude Boy,0.0,12 Bajay - Atif Aslam
+0729,0.0,64,Rihanna - ROCKSTAR 101 ft Slash,0.0,12 Bajay - Atif Aslam
+0728,0.0,10,Rihanna - Question Existing,0.0,12 Bajay - Atif Aslam
+0002,0.0,52,10000 Promises - Backstreet Boys,0.0,12 Bajay - Atif Aslam
+0722,0.0,260,Rihanna - Love The Way You Lie ft Eminem(Part 2) flv,0.0,12 Bajay - Atif Aslam
+0751,0.0,90,Rihanna Cry,0.0,12 Bajay - Atif Aslam
+0721,0.0,2,Rihanna - Let Me (MSN Video),0.0,12 Bajay - Atif Aslam
+0720,0.0,28,Rihanna - If Its Lovin That You Want,0.0,12 Bajay - Atif Aslam
+0719,0.0,2,Rihanna - I Just Dont Feel Like Christmas Without You,0.0,12 Bajay - Atif Aslam
+0716,0.0,28,Rihanna - Good Girl Gone Bad (Control Room),0.0,12 Bajay - Atif Aslam
+0715,0.0,2,Rihanna - Dont Stop The Music,0.0,12 Bajay - Atif Aslam
+0713,0.0,108,Rihanna - Cheers (Drink To That),0.0,12 Bajay - Atif Aslam
+0712,0.0,4,Rihanna - California King Bed,0.0,12 Bajay - Atif Aslam
+0711,0.0,6,Rihanna - Breakin Dishes (Control Room),0.0,12 Bajay - Atif Aslam
+0710,0.0,28,Rihanna & J Status - Should I  (Unofficial),0.0,12 Bajay - Atif Aslam
+0708,0.0,2,Rhythm Divine,0.0,12 Bajay - Atif Aslam
+0750,0.0,12,Rihanna - You Da One,0.0,12 Bajay - Atif Aslam
+0753,0.0,6,Rihanna Push Up On Me,0.0,12 Bajay - Atif Aslam
+0706,0.0,22,Remember - Bryan Adams - Drum Cover By Domenic Nardone,0.0,12 Bajay - Atif Aslam
+0783,0.0,8,Selena Gomez - Come & Get It (Official Music Video),0.0,12 Bajay - Atif Aslam
+0795,0.0,6,Selena Gomez - Sober (Official Video),0.0,12 Bajay - Atif Aslam
+0794,0.0,4,Selena Gomez - Slow Down (Official Music Video),0.0,12 Bajay - Atif Aslam
+0793,0.0,12,Selena Gomez - Save The Day (Official Video),0.0,12 Bajay - Atif Aslam
+0792,0.0,10,Selena Gomez - Same Old Love (Official Music Video),0.0,12 Bajay - Atif Aslam
+0790,0.0,64,Selena Gomez - My Dilemma (Music video),0.0,12 Bajay - Atif Aslam
+0789,0.0,38,Selena Gomez - Music Feels Better (Official Video),0.0,12 Bajay - Atif Aslam
+0788,0.0,42,Selena Gomez - Kill Em With Kindness (Official Music Video),0.0,12 Bajay - Atif Aslam
+0787,0.0,2,Selena Gomez - Hands To Myself (Official Music Video),0.0,12 Bajay - Atif Aslam
+0786,0.0,80,Selena Gomez - Good For You (Official Music Video),0.0,12 Bajay - Atif Aslam
+0785,0.0,310,Selena Gomez - Fetish (Official Music Video) ft Gucci Mane,0.0,12 Bajay - Atif Aslam
+0784,0.0,8,Selena Gomez - Cruella De Vil (Official Music Video) HD,0.0,12 Bajay - Atif Aslam
+0782,0.0,14,Selena Gomez - Bad Liar (Official Music Video),0.0,12 Bajay - Atif Aslam
+0755,0.0,24,Rihanna The Wait Is Ova (Promotional video on RihannaNowcom - October 19 2009),0.0,12 Bajay - Atif Aslam
+0781,0.0,2,Selena Gomez - Back To You,0.0,12 Bajay - Atif Aslam
+0780,0.0,40,Selena Gomez & The Scene - Love You Like A Love Song (Behind The Scenes),0.0,12 Bajay - Atif Aslam
+0779,0.0,4,Selena Gomez & The Scene - Girl Meets World (Episode 7),0.0,12 Bajay - Atif Aslam
+0777,0.0,8,SecretAint no sunshine - Maroon 5 Live Friday 13th,0.0,12 Bajay - Atif Aslam
+0771,0.0,36,SanjanaI Love You - Main Prem Ki Diwani Hoon - Kareena Kapoor Hritik Roshan - Romantic Hit Songs,0.0,12 Bajay - Atif Aslam
+0770,0.0,4,San Sanana  HD  Full Song  Asoka  Shah Rukh Khan  Kareena Kapoor,0.0,12 Bajay - Atif Aslam
+0767,0.0,24,Safest Place To Hide - Backstreet Boys,0.0,12 Bajay - Atif Aslam
+0762,0.0,6,SHAKIRA ft BRITNEY SPEARS -  Animal City,0.0,12 Bajay - Atif Aslam
+0760,0.0,2,SHAKIRA  -  1968,0.0,12 Bajay - Atif Aslam
+0759,0.0,48,SEXY HOT BABYS SHAKIRA AL DESNUDO,0.0,12 Bajay - Atif Aslam
+0757,0.0,2,Rona Chhadita Mahi Mahi - Mel Karade Rabba  Jimmy Shergill Neeru Bajwa  Atif Aslam,0.0,12 Bajay - Atif Aslam
+0707,0.0,2,Remembrance Day (Bryan Adams),0.0,12 Bajay - Atif Aslam
+0691,0.0,12,Piya O Re Piya Video Song - Tere Naal Love Ho Gaya  Riteish Deshmukh Genelia Dsouza  Atif Aslam,0.0,12 Bajay - Atif Aslam
+0697,0.0,20,Pure Imagination by Maroon 5,0.0,12 Bajay - Atif Aslam
+0594,0.0,6,Maroon 5 - Wasted Years (ORIGINAL M5 SONG),0.0,12 Bajay - Atif Aslam
+0621,0.0,8,Murat and Hayat song  atif aslam Hot best songs  new video popular heart touching song 2017,0.0,12 Bajay - Atif Aslam
+0618,0.0,32,Mubarak Ho Tumko Ye Shaadi  Haan Maine Bhi Pyaar Kiya  Akshay Kumar Karishma Kapoor Udit Narayan,0.0,12 Bajay - Atif Aslam
+0615,0.0,10,Miss invisible Taylor swift =,0.0,12 Bajay - Atif Aslam
+0612,0.0,98,Mere Watan - Atif Aslam,0.0,12 Bajay - Atif Aslam
+0605,0.0,42,Maula - atif aslam (original HD download & share & subscribe us please),0.0,12 Bajay - Atif Aslam
+0603,0.0,2,Maroon5 _ KarasFlowers - CAPTAIN SPLENDID,0.0,12 Bajay - Atif Aslam
+0602,0.0,12,Maroon5 - KarasFlowers - PANTRY QUEEN,0.0,12 Bajay - Atif Aslam
+0600,0.0,212,Maroon 5 Not coming home,0.0,12 Bajay - Atif Aslam
+0599,0.0,4,Maroon 5 - Wont Go Home Without You,0.0,12 Bajay - Atif Aslam
+0598,0.0,12,Maroon 5 - Woman,0.0,12 Bajay - Atif Aslam
+0595,0.0,2,Maroon 5 - What Lovers Do ft SZA,0.0,12 Bajay - Atif Aslam
+0593,0.0,18,Maroon 5 - Wake Up Call,0.0,12 Bajay - Atif Aslam
+0693,0.0,14,Pre Wedding Shoot - Nikunj & Neha,0.0,12 Bajay - Atif Aslam
+0591,0.0,144,Maroon 5 - Until Youre Over Me,0.0,12 Bajay - Atif Aslam
+0590,0.0,18,Maroon 5 - Through with you,0.0,12 Bajay - Atif Aslam
+0588,0.0,38,Maroon 5 - This Summers Gonna Hurt Like A Motherfr (Explicit),0.0,12 Bajay - Atif Aslam
+0587,0.0,6,Maroon 5 - This Love,0.0,12 Bajay - Atif Aslam
+0586,0.0,36,Maroon 5 - Sunday Morning,0.0,12 Bajay - Atif Aslam
+0585,0.0,8,Maroon 5 - Sugar,0.0,12 Bajay - Atif Aslam
+0584,0.0,4,Maroon 5 - Stutter (VEVO Carnival Cruise),0.0,12 Bajay - Atif Aslam
+0583,0.0,4,Maroon 5 - Story,0.0,12 Bajay - Atif Aslam
+0582,0.0,84,Maroon 5 - Stereo Hearts,0.0,12 Bajay - Atif Aslam
+0580,0.0,130,Maroon 5 - Runaway,0.0,12 Bajay - Atif Aslam
+0577,0.0,4,Maroon 5 - Payphone (Explicit) ft Wiz Khalifa,0.0,12 Bajay - Atif Aslam
+0628,0.0,112,Nathan East  America The Beautiful - OFFICIAL VIDEO,0.0,12 Bajay - Atif Aslam
+0631,0.0,24,Nicole Scherzinger Feat Rihanna - Winning Woman,0.0,12 Bajay - Atif Aslam
+0636,0.0,2,O Bewafa - DJ Shadow Dubai feat Alee Houston,0.0,12 Bajay - Atif Aslam
+0639,0.0,12,O Piya O Piya Sun - Romantic Song - Jis Desh Mein Ganga Rehta Hain - Govinda Sonali Bendre,0.0,12 Bajay - Atif Aslam
+0797,0.0,32,Selena Gomez - The Heart Wants What It Wants (Official Music Video),0.0,12 Bajay - Atif Aslam
+0684,0.0,10,Pagg Wala Munda - Video Song  Ambarsariya  Diljit Dosanjh Navneet Monica Lauren,0.0,12 Bajay - Atif Aslam
+0682,0.0,10,PS im still not over you ( rihanna),0.0,12 Bajay - Atif Aslam
+0679,0.0,34,Over Her-Backstreet boys,0.0,12 Bajay - Atif Aslam
+0676,0.0,18,One DirectionWalking in the Wind,0.0,12 Bajay - Atif Aslam
+0673,0.0,18,One Direction sing Nobody Knows - The X Factor Live show 3 (Full Version),0.0,12 Bajay - Atif Aslam
+0670,0.0,78,One Direction sing Chasing Cars - The X Factor Live Semi-Final (Full Version),0.0,12 Bajay - Atif Aslam
+0667,0.0,2,One Direction - You & I (Official Video),0.0,12 Bajay - Atif Aslam
+0666,0.0,18,One Direction - What Makes You Beautiful (Official Video),0.0,12 Bajay - Atif Aslam
+0662,0.0,2,One Direction - Perfect (Official Video),0.0,12 Bajay - Atif Aslam
+0661,0.0,16,One Direction - One Way Or Another (Teenage Kicks),0.0,12 Bajay - Atif Aslam
+0660,0.0,4,One Direction - One Thing (Official Video),0.0,12 Bajay - Atif Aslam
+0659,0.0,14,One Direction - Night Changes (Official Video),0.0,12 Bajay - Atif Aslam
+0657,0.0,6,One Direction - Midnight Memories (Official Video),0.0,12 Bajay - Atif Aslam
+0656,0.0,16,One Direction - Live While Were Young (Official Video),0.0,12 Bajay - Atif Aslam
+0653,0.0,16,One Direction - Infinity (Live),0.0,12 Bajay - Atif Aslam
+0651,0.0,8,One Direction - History (Official Video),0.0,12 Bajay - Atif Aslam
+0650,0.0,4,One Direction - Gotta Be You (Official Video),0.0,12 Bajay - Atif Aslam
+0649,0.0,72,One Direction - FourFiveSeconds (Rihanna and Kanye West and Paul McCartney cover in the Live Lounge),0.0,12 Bajay - Atif Aslam
+0647,0.0,24,One Direction - Dont Forget Where You Belong (Official Video),0.0,12 Bajay - Atif Aslam
+0646,0.0,64,One Direction - Diana ( Music Video ),0.0,12 Bajay - Atif Aslam
+0645,0.0,22,One Direction - Better Than Words (Official Video),0.0,12 Bajay - Atif Aslam
+0644,0.0,40,One Direction - Best Song Ever (Official Video),0.0,12 Bajay - Atif Aslam
+0796,0.0,6,Selena Gomez - Tell Me Something I Dont Know (Official Music Video),0.0,12 Bajay - Atif Aslam
+0798,0.0,12,Selena Gomez - Undercover (Official Video),0.0,12 Bajay - Atif Aslam
+0572,0.0,12,Maroon 5 - Misery,0.0,12 Bajay - Atif Aslam
+0924,0.0,6,Taylor Swift - Mine,0.0,12 Bajay - Atif Aslam
+0939,0.0,34,Taylor Swift - The Best Day,0.0,12 Bajay - Atif Aslam
+0937,0.0,364,Taylor Swift - Style,0.0,12 Bajay - Atif Aslam
+0936,0.0,56,Taylor Swift - Speak Now (Live on Letterman),0.0,12 Bajay - Atif Aslam
+0935,0.0,128,Taylor Swift - Sparks Fly,0.0,12 Bajay - Atif Aslam
+0934,0.0,10,Taylor Swift - Shouldve Said No,0.0,12 Bajay - Atif Aslam
+0933,0.0,128,Taylor Swift - Shake It Off,0.0,12 Bajay - Atif Aslam
+0931,0.0,64,Taylor Swift - Red,0.0,12 Bajay - Atif Aslam
+0930,0.0,6,Taylor Swift - Picture To Burn,0.0,12 Bajay - Atif Aslam
+0928,0.0,28,Taylor Swift - Out Of The Woods,0.0,12 Bajay - Atif Aslam
+0926,0.0,2,Taylor Swift - Our Song,0.0,12 Bajay - Atif Aslam
+0925,0.0,8,Taylor Swift - New Romantics,0.0,12 Bajay - Atif Aslam
+0923,0.0,4,Taylor Swift - Mean,0.0,12 Bajay - Atif Aslam
+0945,0.0,10,Taylor Swift - Wildest Dreams,0.0,12 Bajay - Atif Aslam
+0919,0.0,8,Taylor Swift - I Knew You Were Trouble,0.0,12 Bajay - Atif Aslam
+0917,0.0,2,Taylor Swift - Fearless,0.0,12 Bajay - Atif Aslam
+0916,0.0,10,Taylor Swift - Everything Has Changed ft Ed Sheeran,0.0,12 Bajay - Atif Aslam
+0915,0.0,2,Taylor Swift - End Game ft Ed Sheeran Future,0.0,12 Bajay - Atif Aslam
+0914,0.0,42,Taylor Swift - Drops of Jupiter (Live) HD,0.0,12 Bajay - Atif Aslam
+0913,0.0,2,Taylor Swift - Delicate,0.0,12 Bajay - Atif Aslam
+0912,0.0,18,Taylor Swift - Change,0.0,12 Bajay - Atif Aslam
+0910,0.0,18,Taylor Swift - Blank Space,0.0,12 Bajay - Atif Aslam
+0909,0.0,10,Taylor Swift - Begin Again,0.0,12 Bajay - Atif Aslam
+0908,0.0,12,Taylor Swift - Bad Blood ft Kendrick Lamar,0.0,12 Bajay - Atif Aslam
+0907,0.0,2,Taylor Swift - Back To December,0.0,12 Bajay - Atif Aslam
+0943,0.0,30,Taylor Swift - We Are Never Ever Getting Back Together,0.0,12 Bajay - Atif Aslam
+0946,0.0,2,Taylor Swift - You Belong With Me,0.0,12 Bajay - Atif Aslam
+0803,0.0,102,Selena Gomez Fly To Your Heart FULL Music Video,0.0,12 Bajay - Atif Aslam
+0996,0.0,126,Udd Chalein Song Video - Farhan Gilani  Atif Ali  New Hindi Songs 2018,0.0,12 Bajay - Atif Aslam
+1031,0.0,34,benny blanco Tainy Selena Gomez J Balvin - I Cant Get Enough (Official Music Video),0.0,12 Bajay - Atif Aslam
+1030,0.0,8,backstreet boys- spanish eyes,0.0,12 Bajay - Atif Aslam
+1029,0.0,164,backstreet boys- all i have to giveif you stay,0.0,12 Bajay - Atif Aslam
+1023,0.0,52,Zubeidaa - Dheeme Dheeme  Karisma Kapoor  Manoj Bajpai,0.0,12 Bajay - Atif Aslam
+1021,0.0,4,Yuri & All Latins Stars - El Ultimo adios (Video Oficial),0.0,12 Bajay - Atif Aslam
+1018,0.0,26,You Cant Take Me by Bryan Adams,0.0,12 Bajay - Atif Aslam
+1017,0.0,60,Yes I will Backstreet Boys,0.0,12 Bajay - Atif Aslam
+1016,0.0,152,Yellow Pages- Ed Sheeran,0.0,12 Bajay - Atif Aslam
+1015,0.0,118,Yeh Raat Bheegi Bheegi  Sanam ft Aishwarya Majmudar  Official HD Video,0.0,12 Bajay - Atif Aslam
+1009,0.0,4,Yaad Tehari - Atif Aslam,0.0,12 Bajay - Atif Aslam
+1002,0.0,4,Weekly Top 5  Nazarbattu  Aate Jaate  Pal  Lag Ja Gale  Chalte Chalte,0.0,12 Bajay - Atif Aslam
+0986,0.0,8,Tubelight - Main Agar  Salman Khan  Pritam  Atif Aslam Kabir Khan Latest Trending Hit Song 2017,0.0,12 Bajay - Atif Aslam
+0950,0.0,24,Taylor Swift Today was a Fairytale Music Video HD,0.0,12 Bajay - Atif Aslam
+0981,0.0,2,Tu Hai Ki Nahi FULL VIDEO Song  Roy  Ankit Tiwari  Ranbir Kapoor Jacqueline Fernandez Tseries,0.0,12 Bajay - Atif Aslam
+0976,0.0,8,Time - Backstreet Boys,0.0,12 Bajay - Atif Aslam
+0970,0.0,22,The Rolling Stones & Taylor Swift - As Tears Go By - Live in Chicago,0.0,12 Bajay - Atif Aslam
+0969,0.0,18,The Rain-Akon (Konvicted),0.0,12 Bajay - Atif Aslam
+0968,0.0,6,The Medley - Full Song  Mujhse Dosti Karoge  Hrithik Roshan  Kareena Kapoor  Rani Mukerji,0.0,12 Bajay - Atif Aslam
+0966,0.0,20,The Dichotomy of Fame Instrumental Song  Rockstar  Ranbir Kapoor Nargis Fakhri,0.0,12 Bajay - Atif Aslam
+0965,0.0,20,The Breakup Song - Ae Dil Hai Mushkil   Latest Official Song 2016  Pritam  Arijit I Badshah,0.0,12 Bajay - Atif Aslam
+0964,0.0,20,The Air that I Breathe-Maroon 5,0.0,12 Bajay - Atif Aslam
+0959,0.0,26,Tere Liye - Prince - Atif Aslam - Full Song - Vivek Oberoi & Aruna Sheilds,0.0,12 Bajay - Atif Aslam
+0954,0.0,2,Tera Naam Doon - Its Entertainment  Akshay Kumar Tamannaah Atif Aslam  Latest Song Video,0.0,12 Bajay - Atif Aslam
+0953,0.0,26,Tera Hua (Remix) - DJ Aulektro  Atif Aslam  Loveratri  Rahat Nation VFX,0.0,12 Bajay - Atif Aslam
+0906,0.0,12,Taylor Swift - American Girl (Tom Petty cover) New single 2009,0.0,12 Bajay - Atif Aslam
+0905,0.0,8,Taylor Swift - 22,0.0,12 Bajay - Atif Aslam
+0901,0.0,28,Taaron Ka Chamakta [Full Song] Hum Tumhare Hain Sanam,0.0,12 Bajay - Atif Aslam
+0826,0.0,208,Shakira - Empire (Official Music Video),0.0,12 Bajay - Atif Aslam
+0843,0.0,6,Shakira - Nada (Official Video),0.0,12 Bajay - Atif Aslam
+0841,0.0,650,Shakira - Mon amour,0.0,12 Bajay - Atif Aslam
+0840,0.0,190,Shakira - Magia,0.0,12 Bajay - Atif Aslam
+0839,0.0,36,Shakira - Loca (Video Oficial) ft El Cata,0.0,12 Bajay - Atif Aslam
+0834,0.0,40,Shakira - Inevitable (Official Music Video),0.0,12 Bajay - Atif Aslam
+0833,0.0,2,Shakira - Illegal (Official Music Video) ft Santana,0.0,12 Bajay - Atif Aslam
+0832,0.0,48,Shakira - Hips Dont Lie (Official Music Video) ft Wyclef Jean,0.0,12 Bajay - Atif Aslam
+0831,0.0,4,Shakira - Hey You (Live),0.0,12 Bajay - Atif Aslam
+0830,0.0,144,Shakira - Good stuff,0.0,12 Bajay - Atif Aslam
+0829,0.0,4,Shakira - Give It Up To Me (Official Music Video),0.0,12 Bajay - Atif Aslam
+0828,0.0,330,Shakira - Gitana (Video Oficial),0.0,12 Bajay - Atif Aslam
+0825,0.0,76,Shakira - Dont Bother,0.0,12 Bajay - Atif Aslam
+0900,0.0,48,TI feat Rihanna - Live Your Life (Lisa Lavie),0.0,12 Bajay - Atif Aslam
+0822,0.0,104,Shakira - Dia de Enero (Video),0.0,12 Bajay - Atif Aslam
+0821,0.0,38,Shakira - Cuentas Conmigo,0.0,12 Bajay - Atif Aslam
+0819,0.0,26,Shakira - Ciega Sordomuda (Video Oficial),0.0,12 Bajay - Atif Aslam
+0818,0.0,14,Shakira - Chantaje (Official Video) ft Maluma,0.0,12 Bajay - Atif Aslam
+0816,0.0,22,Shakira - Broken Record - (Music Video),0.0,12 Bajay - Atif Aslam
+0813,0.0,16,Shakira - Antologia (Live),0.0,12 Bajay - Atif Aslam
+0812,0.0,12,Shakira - Antes De Las Seis (Live From Paris),0.0,12 Bajay - Atif Aslam
+0811,0.0,4,Shakira - Addicted to You (Video Oficial),0.0,12 Bajay - Atif Aslam
+0808,0.0,2,Selfish Song Video - Race 3  Salman Khan Bobby Jacqueline  Atif Aslam Iulia Vantur  Vishal,0.0,12 Bajay - Atif Aslam
+0806,0.0,68,Selena Gomez Who Says Remix,0.0,12 Bajay - Atif Aslam
+0805,0.0,64,Selena Gomez Marshmello - Wolves (Official Music Video),0.0,12 Bajay - Atif Aslam
+0844,0.0,16,Shakira - No (Video Oficial),0.0,12 Bajay - Atif Aslam
+0845,0.0,28,Shakira - No Creo,0.0,12 Bajay - Atif Aslam
+0849,0.0,52,Shakira - Poem to a Horse,0.0,12 Bajay - Atif Aslam
+0853,0.0,4,Shakira - Rabiosa (Official Music Video) ft Pitbull,0.0,12 Bajay - Atif Aslam
+0893,0.0,2,Sooraj Dooba Hain Video Song  Roy  Arijit S Amaal M Ranbir Kapoor  Arjun Rampal  Jacqueline,0.0,12 Bajay - Atif Aslam
+0888,0.0,8,Show me the meaning - Backstreet Boys,0.0,12 Bajay - Atif Aslam
+0886,0.0,6,Shes A Dream Backstreet Boys,0.0,12 Bajay - Atif Aslam
+0885,0.0,8,She believes in me - bryan adams,0.0,12 Bajay - Atif Aslam
+0882,0.0,8,Shakira y su padre William Mebarak graban Hay Amores  Shakira & her dad record Hay Amores,0.0,12 Bajay - Atif Aslam
+0880,0.0,16,Shakira Sombra de ti (MTV Unplugged),0.0,12 Bajay - Atif Aslam
+0879,0.0,30,Shakira Maluma - Clandestino (Official Video),0.0,12 Bajay - Atif Aslam
+0877,0.0,12,Shakira Costume makes the Clown,0.0,12 Bajay - Atif Aslam
+0876,0.0,114,Shakira Concierto en Guatemala,0.0,12 Bajay - Atif Aslam
+0875,0.0,4,Shakira Cazador De Amor,0.0,12 Bajay - Atif Aslam
+0874,0.0,24,Shakira - Why wait (Video),0.0,12 Bajay - Atif Aslam
+0873,0.0,172,Shakira - Whenever Wherever (Official Music Video),0.0,12 Bajay - Atif Aslam
+0871,0.0,8,Shakira - Un Poco de Amor (Video Oficial),0.0,12 Bajay - Atif Aslam
+0869,0.0,8,Shakira - Try Everything (From Zootopia) (Official Music Video),0.0,12 Bajay - Atif Aslam
+0868,0.0,794,Shakira - Trap (Official Music Video) ft Maluma,0.0,12 Bajay - Atif Aslam
+0867,0.0,100,Shakira - Timor,0.0,12 Bajay - Atif Aslam
+0864,0.0,374,Shakira - Te necesito,0.0,12 Bajay - Atif Aslam
+0860,0.0,200,Shakira - Suerte (Whenever Wherever) (Video Oficial),0.0,12 Bajay - Atif Aslam
+0859,0.0,114,Shakira - Si Te Vas (Live),0.0,12 Bajay - Atif Aslam
+0857,0.0,34,Shakira - Se Quiere Se Mata (Video Oficial),0.0,12 Bajay - Atif Aslam
+0856,0.0,78,Shakira - Sale El Sol  (Official Music Video),0.0,12 Bajay - Atif Aslam
+0855,0.0,8,Shakira - Rules (from Live & Off the Record),0.0,12 Bajay - Atif Aslam
+0854,0.0,40,Shakira - Ready for the Good Times (from Live & Off the Record),0.0,12 Bajay - Atif Aslam
+0576,0.0,42,Maroon 5 - One More Night,0.0,12 Bajay - Atif Aslam
+0568,0.0,26,Maroon 5 - Lips On You (Music Video),0.0,12 Bajay - Atif Aslam
+0569,0.0,2,Maroon 5 - Love Somebody,0.0,12 Bajay - Atif Aslam
+0195,0.0,8,Bryan Adams - Heaven (Official Music Video),0.0,12 Bajay - Atif Aslam
+0212,0.0,2,Bryan Adams - Star,0.0,12 Bajay - Atif Aslam
+0211,0.0,40,Bryan Adams - Somebody (Official Music Video),0.0,12 Bajay - Atif Aslam
+0210,0.0,10,Bryan Adams - Sgt Peppers Lonely Hearts Club Band,0.0,12 Bajay - Atif Aslam
+0209,0.0,66,Bryan Adams - Run To You (Official Music Video),0.0,12 Bajay - Atif Aslam
+0206,0.0,4,Bryan Adams - Please Forgive Me (Official Music Video),0.0,12 Bajay - Atif Aslam
+0205,0.0,146,Bryan Adams - One Night Love Affair (Live),0.0,12 Bajay - Atif Aslam
+0204,0.0,4,Bryan Adams - On A Day Like Today,0.0,12 Bajay - Atif Aslam
+0203,0.0,102,Bryan Adams - Merry Christmas,0.0,12 Bajay - Atif Aslam
+0202,0.0,30,Bryan Adams - Lets Make A Night To Remember,0.0,12 Bajay - Atif Aslam
+0201,0.0,46,Bryan Adams - Into The Fire,0.0,12 Bajay - Atif Aslam
+0200,0.0,12,Bryan Adams - Inside Out,0.0,12 Bajay - Atif Aslam
+0194,0.0,4,Bryan Adams - Have You Ever Really Loved A Woman,0.0,12 Bajay - Atif Aslam
+0215,0.0,22,Bryan Adams - The Only Thing That Looks Good On Me Is You,0.0,12 Bajay - Atif Aslam
+0193,0.0,4,Bryan Adams - Dont Give Up - Live at Slane Castle Ireland,0.0,12 Bajay - Atif Aslam
+0190,0.0,132,Bryan Adams - Cmon Everybody,0.0,12 Bajay - Atif Aslam
+0187,0.0,26,Bryan Adams - Blues Jam - Live at Slane Castle Ireland,0.0,12 Bajay - Atif Aslam
+0184,0.0,22,Bryan Adams - All I Want Is You,0.0,12 Bajay - Atif Aslam
+0182,0.0,6,Brothers under the sun -  Bryan Adams,0.0,12 Bajay - Atif Aslam
+0181,0.0,38,Boys Like Girls - Two Is Better Than One,0.0,12 Bajay - Atif Aslam
+0179,0.0,26,Bholi - Manpreet Shergill - Brand new Punjabi songs -  Full HD,0.0,12 Bajay - Atif Aslam
+0178,0.0,2,Bheegi Yaadein  Divyansh J Lugria  New Cover 2017  Zeher,0.0,12 Bajay - Atif Aslam
+0177,0.0,150,Beyblade - Only The Strong Survive,0.0,12 Bajay - Atif Aslam
+0170,0.0,2,Barsaat Ke Din Aaye  Barsaat (2005)  Bobby Deol  Priyanka Chopra  Rain Song  Filmigaane,0.0,12 Bajay - Atif Aslam
+0165,0.0,6,Bakhuda Tumhi Ho - Kismat Konnection  Shahid Kapoor & Vidya Balan  Atif Aslam & Alka Yagnik,0.0,12 Bajay - Atif Aslam
+0214,0.0,6,Bryan Adams - Summer Of 69 (Official Music Video),0.0,12 Bajay - Atif Aslam
+0217,0.0,16,Bryan Adams - There Will Never Be Another Tonight,0.0,12 Bajay - Atif Aslam
+0567,0.0,400,Maroon 5 - Kiwi,0.0,12 Bajay - Atif Aslam
+0250,0.0,10,Chris Brown - Next To You (Official Music Video) ft Justin Bieber,0.0,12 Bajay - Atif Aslam
+0292,0.0,74,Duck Tales FeatMichael Jackson - Were Almost There,0.0,12 Bajay - Atif Aslam
+0286,0.0,22,Dola Re Dola Devdas,0.0,12 Bajay - Atif Aslam
+0278,0.0,30,Dil Mere Naa Song Video- Fida  Shahid Kapoor Kareena Kapoor  Udit Narayan Alka Yagnik Anu Malik,0.0,12 Bajay - Atif Aslam
+0270,0.0,458,Dices - Selena Gomez & The Scene,0.0,12 Bajay - Atif Aslam
+0269,0.0,4,Dholna Atif Aslam   BTS Coke Studio Pakistan Season 5 Episode 4 +,0.0,12 Bajay - Atif Aslam
+0267,0.0,60,Daiya Daiya Daiya Re - Video Song  Dil Ka Rishta  Aishwarya Rai & Arjun Rampal  Alka Yagnik,0.0,12 Bajay - Atif Aslam
+0265,0.0,68,DEV - Naked (Official Music Video) ft Enrique Iglesias,0.0,12 Bajay - Atif Aslam
+0263,0.0,26,Crazier by Taylor Swift,0.0,12 Bajay - Atif Aslam
+0256,0.0,412,Club 69 - Muscles Paris StClaire [Female Impersonator],0.0,12 Bajay - Atif Aslam
+0253,0.0,38,Cinderella Video FeatMichael Jackson -Cinderella stay awile,0.0,12 Bajay - Atif Aslam
+0252,0.0,4,Chupke se sun - Full Video HD  Mission Kashmir  Hrithik Roshan  Preity Zinta  Sanjay Dutt,0.0,12 Bajay - Atif Aslam
+0246,0.0,44,Chasing Shadows - Shakira (Music Video),0.0,12 Bajay - Atif Aslam
+0219,0.0,2,Bryan Adams - This Time,0.0,12 Bajay - Atif Aslam
+0245,0.0,78,Chasing Cars Ed Sheeran Cover (ft Gary Lightbody from Snow Patrol),0.0,12 Bajay - Atif Aslam
+0243,0.0,14,Channa Mereya -  Ae Dil Hai Mushkil  Karan Johar  Ranbir  Anushka  Pritam  Arijit Singh,0.0,12 Bajay - Atif Aslam
+0235,0.0,12,Chali Aayee - Main Prem Ki Diwani Hoon - Kareena Kapoor & Hrithik Roshan - Superhit Bollywood Song,0.0,12 Bajay - Atif Aslam
+0233,0.0,6,Chalak Chalak Devdas,0.0,12 Bajay - Atif Aslam
+0232,0.0,2,Chaar Churiyan (Full Song)  Inder Nagra Feat Badshah  Latest Punjabi Songs 2016  Speed Records,0.0,12 Bajay - Atif Aslam
+0231,0.0,2,COLTON FORD Innocent [Taylor Swift] directed by Bart Everly,0.0,12 Bajay - Atif Aslam
+0228,0.0,2,Bumbro - Full Video HD  Mission Kashmir  Hrithik Roshan  Preity Zinta  Sanjay Dutt,0.0,12 Bajay - Atif Aslam
+0227,0.0,802,Bryan Adams Gretchen Wilson-  Hey Baby,0.0,12 Bajay - Atif Aslam
+0223,0.0,20,Bryan Adams - Victim Of Love,0.0,12 Bajay - Atif Aslam
+0222,0.0,30,Bryan Adams - Touch The Hand,0.0,12 Bajay - Atif Aslam
+0221,0.0,4,Bryan Adams - Tonight We Have The Stars,0.0,12 Bajay - Atif Aslam
+0162,0.0,2,Badi Mushkil (Video Song) - Lajja,0.0,12 Bajay - Atif Aslam
+0160,0.0,28,Backstreet Boys-Like A Child LEGENDADO,0.0,12 Bajay - Atif Aslam
+0159,0.0,28,Backstreet Boys Weird World,0.0,12 Bajay - Atif Aslam
+0044,0.0,40,Akon - Freedom Episode 3 - Fashionista,0.0,12 Bajay - Atif Aslam
+0090,0.0,16,Atif Aslam - Khair Mangda,0.0,12 Bajay - Atif Aslam
+0087,0.0,6,Atif Aslam  Bharat title song  Salman Khan  Katrina   Hindi Movie Song 2019 (ATV),0.0,12 Bajay - Atif Aslam
+0085,0.0,12,As Things Collide by Maroon 5,0.0,12 Bajay - Atif Aslam
+0079,0.0,96,Akon- Once In A While,0.0,12 Bajay - Atif Aslam
+0075,0.0,118,Akon Gringo,0.0,12 Bajay - Atif Aslam
+0074,0.0,14,Akon -Bad Man,0.0,12 Bajay - Atif Aslam
+0061,0.0,4,Akon - Pot Of Gold,0.0,12 Bajay - Atif Aslam
+0057,0.0,298,Akon - Me Myself and I,0.0,12 Bajay - Atif Aslam
+0055,0.0,4,Akon - Lonely,0.0,12 Bajay - Atif Aslam
+0049,0.0,2,Akon - I Cant Wait,0.0,12 Bajay - Atif Aslam
+0048,0.0,10,Akon - Home Grown,0.0,12 Bajay - Atif Aslam
+0040,0.0,18,Akon - Dont Matter,0.0,12 Bajay - Atif Aslam
+0158,0.0,4,Backstreet Boys Thats What She Said,0.0,12 Bajay - Atif Aslam
+0035,0.0,76,Akon - Be With You,0.0,12 Bajay - Atif Aslam
+0034,0.0,2,Akon - Bananza (Belly Dancer),0.0,12 Bajay - Atif Aslam
+0033,0.0,2,Akon - Angel (Official Music),0.0,12 Bajay - Atif Aslam
+0029,0.0,10,Ae Paapi - Kismat Konnection  Shahid Kapoor & Vidya Balan  Neeraj Shreedhar  Pritam,0.0,12 Bajay - Atif Aslam
+0028,0.0,14,Ae Dil Hai Mushkil - Full Song Video  Karan Johar  Aishwarya Ranbir Anushka  Pritam  Arijit,0.0,12 Bajay - Atif Aslam
+0027,0.0,36,Adventure of Ichabod and Mr ToadMichael Jackson -Euphoria,0.0,12 Bajay - Atif Aslam
+0026,0.0,22,Ab Khud Kuch Karna Paray Ga  Strings  Atif Aslam  2010  (Official Video),0.0,12 Bajay - Atif Aslam
+0021,0.0,80,Aang - Before The Night Is Over - Bryan Adams,0.0,12 Bajay - Atif Aslam
+0019,0.0,2,Aaja Soniye [Full Song] Mujhse Shaadi Karogi,0.0,12 Bajay - Atif Aslam
+0013,0.0,16,Aa Bhi Ja Mere Mehermaan - Video Song  Jayantabhai Ki Luv Story  Vivek Oberoi & Neha Sharma,0.0,12 Bajay - Atif Aslam
+0006,0.0,12,2Pac ft Akon - Ghetto Gospel,0.0,12 Bajay - Atif Aslam
+0091,0.0,2,Atif Aslam - Kinara,0.0,12 Bajay - Atif Aslam
+0092,0.0,62,Atif Aslam Feat PAK ARMY  - Song (HD VIDEO) -From JHANZAIBSPAK,0.0,12 Bajay - Atif Aslam
+0101,0.0,38,Avatar The Last Airbender  Get Off My Back (Bryan Adams),0.0,12 Bajay - Atif Aslam
+0102,0.0,8,Ay Haiti,0.0,12 Bajay - Atif Aslam
+0156,0.0,22,Backstreet Boys Never Gone,0.0,12 Bajay - Atif Aslam
+0155,0.0,58,Backstreet Boys Missing You,0.0,12 Bajay - Atif Aslam
+0152,0.0,46,Backstreet Boys - Weve Got It Goin On,0.0,12 Bajay - Atif Aslam
+0149,0.0,6,Backstreet Boys - The One,0.0,12 Bajay - Atif Aslam
+0144,0.0,10,Backstreet Boys - Show Me The Meaning Of Being Lonely (Official Music Video),0.0,12 Bajay - Atif Aslam
+0142,0.0,32,Backstreet Boys - Quit Playing Games (With My Heart) (Official Music Video),0.0,12 Bajay - Atif Aslam
+0138,0.0,2,Backstreet Boys - More Than That,0.0,12 Bajay - Atif Aslam
+0137,0.0,18,Backstreet Boys - Memories,0.0,12 Bajay - Atif Aslam
+0133,0.0,72,Backstreet Boys - Just Want You To Know,0.0,12 Bajay - Atif Aslam
+0130,0.0,8,Backstreet Boys - Incomplete (MTV Version) (Official Music Video),0.0,12 Bajay - Atif Aslam
+0129,0.0,2,Backstreet Boys - Ill Never Break Your Heart,0.0,12 Bajay - Atif Aslam
+0128,0.0,26,Backstreet Boys - If You Knew What I Knew,0.0,12 Bajay - Atif Aslam
+0127,0.0,8,Backstreet Boys - If I Knew Then,0.0,12 Bajay - Atif Aslam
+0126,0.0,46,Backstreet Boys - I Want It That Way (Official Music Video),0.0,12 Bajay - Atif Aslam
+0122,0.0,4,Backstreet Boys - Helpless When She Smiles,0.0,12 Bajay - Atif Aslam
+0118,0.0,8,Backstreet Boys - Drowning (Official Music Video),0.0,12 Bajay - Atif Aslam
+0117,0.0,30,Backstreet Boys - Downpour,0.0,12 Bajay - Atif Aslam
+0113,0.0,12,Backstreet Boys - As Long As You Love Me (Clives Cut) (Official Music Video),0.0,12 Bajay - Atif Aslam
+0112,0.0,2,Backstreet Boys - Anywhere For You (AC3 Stereo),0.0,12 Bajay - Atif Aslam
+0110,0.0,10,Backstreet Boys - All I Have To Give (AC3 Stereo),0.0,12 Bajay - Atif Aslam
+0109,0.0,18,BackStreet Boys - Boys Will Be Boys,0.0,12 Bajay - Atif Aslam
+0105,0.0,14,BIRTHDAY,0.0,12 Bajay - Atif Aslam
+0104,0.0,104,BC Ferry Ride from Swartz Bay to Tsawwassen,0.0,12 Bajay - Atif Aslam
+0298,0.0,92,ENRIQUE IGLESIAS - Bailamos,0.0,12 Bajay - Atif Aslam
+0301,0.0,12,Ed Sheeran  F64 (Take It Back) [S3EP51] SBTV,0.0,12 Bajay - Atif Aslam
+0305,0.0,214,Ed Sheeran - All Of The Stars [Official Video],0.0,12 Bajay - Atif Aslam
+0474,0.0,116,Justin Bieber - Mark My Words (PURPOSE  The Movement),0.0,12 Bajay - Atif Aslam
+0489,0.0,18,Justin Bieber - That Should Be Me ft Rascal Flatts (Official Music Video),0.0,12 Bajay - Atif Aslam
+0488,0.0,6,Justin Bieber - Take You (Full HDAudio),0.0,12 Bajay - Atif Aslam
+0487,0.0,160,Justin Bieber - Sorry (PURPOSE  The Movement),0.0,12 Bajay - Atif Aslam
+0485,0.0,10,Justin Bieber - She Dont Like The Lights (Full HDAudio),0.0,12 Bajay - Atif Aslam
+0484,0.0,6,Justin Bieber - Right Here (Ft Drake - Full HDAudio),0.0,12 Bajay - Atif Aslam
+0483,0.0,22,Justin Bieber - Purpose (PURPOSE  The Movement),0.0,12 Bajay - Atif Aslam
+0482,0.0,92,Justin Bieber - Pick Me (HQ)(HD Video),0.0,12 Bajay - Atif Aslam
+0481,0.0,8,Justin Bieber - Out Of Town Girl (Full HDAudio),0.0,12 Bajay - Atif Aslam
+0477,0.0,2,Justin Bieber - No Sense (PURPOSE  The Movement) ft Travi Scott,0.0,12 Bajay - Atif Aslam
+0476,0.0,6,Justin Bieber - Never Say Never ft Jaden Smith (Official Music Video),0.0,12 Bajay - Atif Aslam
+0475,0.0,2,Justin Bieber - Never Let You Go,0.0,12 Bajay - Atif Aslam
+0472,0.0,22,Justin Bieber - Love Me Like You Do (Full HDAudio),0.0,12 Bajay - Atif Aslam
+0458,0.0,2,Justin Bieber - Beauty And A Beat (Ft Nicki Minaj - Full HDAudio),0.0,12 Bajay - Atif Aslam
+0471,0.0,2,Justin Bieber - Love Me (Official Music Video),0.0,12 Bajay - Atif Aslam
+0470,0.0,274,Justin Bieber - Life Is Worth Living (PURPOSE  The Movement),0.0,12 Bajay - Atif Aslam
+0469,0.0,42,Justin Bieber - Ill Show You (Official Video),0.0,12 Bajay - Atif Aslam
+0467,0.0,6,Justin Bieber - Fall (Full HDAudio),0.0,12 Bajay - Atif Aslam
+0466,0.0,14,Justin Bieber - Fairytale (Ft Jaden Smith - Full HDAudio),0.0,12 Bajay - Atif Aslam
+0465,0.0,6,Justin Bieber - Confident ft Chance The Rapper,0.0,12 Bajay - Atif Aslam
+0464,0.0,66,Justin Bieber - Company (PURPOSE  The Movement),0.0,12 Bajay - Atif Aslam
+0463,0.0,2,Justin Bieber - Children (PURPOSE  The Movement),0.0,12 Bajay - Atif Aslam
+0462,0.0,8,Justin Bieber - Catching Feelings (Full HDAudio),0.0,12 Bajay - Atif Aslam
+0461,0.0,10,Justin Bieber - Boyfriend (Full HDAudio),0.0,12 Bajay - Atif Aslam
+0460,0.0,66,Justin Bieber - Boyfriend (Acoustic) (Live),0.0,12 Bajay - Atif Aslam
+0490,0.0,118,Justin Bieber - The Feeling (PURPOSE  The Movement) ft Halsey,0.0,12 Bajay - Atif Aslam
+0491,0.0,6,Justin Bieber - U Smile (Official Music Video),0.0,12 Bajay - Atif Aslam
+0492,0.0,34,Justin Bieber - What Do You Mean (Official Music Video),0.0,12 Bajay - Atif Aslam
+0494,0.0,4,K3G - Bole Chudiyan Video  Amitabh Shah Rukh Kareena Hrithik,0.0,12 Bajay - Atif Aslam
+0563,0.0,8,Maroon 5 - Happy Christmas (War Is Over),0.0,12 Bajay - Atif Aslam
+0562,0.0,26,Maroon 5 - Hands All Over,0.0,12 Bajay - Atif Aslam
+0561,0.0,22,Maroon 5 - Give A Little More,0.0,12 Bajay - Atif Aslam
+0559,0.0,12,Maroon 5 - Dont Wanna Know,0.0,12 Bajay - Atif Aslam
+0558,0.0,38,Maroon 5 - Daylight,0.0,12 Bajay - Atif Aslam
+0557,0.0,4,Maroon 5 - Cold ft Future,0.0,12 Bajay - Atif Aslam
+0555,0.0,20,Marathonradio Ibe Wuyts - Tenerife Sea,0.0,12 Bajay - Atif Aslam
+0554,0.0,198,Mar Jaayen (More Jabo) by Porshi  Arfin Rumey  Loveshhuda  Song Cover  Mithoon,0.0,12 Bajay - Atif Aslam
+0549,0.0,4,Mahiya Ve Soniya by ATIF ASLaM,0.0,12 Bajay - Atif Aslam
+0548,0.0,4,Maher Zain & Atif Aslam - Im Alive (Official Music Video),0.0,12 Bajay - Atif Aslam
+0546,0.0,2,Maejor Ali - Lolly ft Juicy J Justin Bieber,0.0,12 Bajay - Atif Aslam
+0541,0.0,22,Love The Way You Lie - Eminem feat Rihanna (Official Video) - PARODIE,0.0,12 Bajay - Atif Aslam
+0539,0.0,6,Lionel Richie - To Love A Woman ft Enrique Iglesias,0.0,12 Bajay - Atif Aslam
+0537,0.0,6,Le Ja Tu Mujhe - ( Re - Remix ) With Dj Md Hasan  - Atif Aslam  2011 New Song Bollywood,0.0,12 Bajay - Atif Aslam
+0536,0.0,2008,Last Kiss by Taylor Swift,0.0,12 Bajay - Atif Aslam
+0534,0.0,10,Lambi Judai Song - Komal Rizvi - Live Performance HD,0.0,12 Bajay - Atif Aslam
+0531,0.0,2,Ladka Yeh Kehta Hai Ladki Se - Main Prem Ki Diwani Hoon - Hrithik & Kareena - Bollywood Songs,0.0,12 Bajay - Atif Aslam
+0529,0.0,10,LAOS - Hush Now (501 Remix),0.0,12 Bajay - Atif Aslam
+0519,0.0,2,Kiss - Maroon 5 [Overexposed (Deluxe Version)],0.0,12 Bajay - Atif Aslam
+0518,0.0,48,Kisfiunknak (Bryan Adams Flying),0.0,12 Bajay - Atif Aslam
+0510,0.0,36,Kat DeLuna Feat Akon - Push Push (High Quality),0.0,12 Bajay - Atif Aslam
+0497,0.0,2,K3G - Suraj Hua Maddham Video  Shah Rukh Khan Kajol,0.0,12 Bajay - Atif Aslam
+0495,0.0,6,K3G - Deewana Hai Dekho Video  Kareena Kapoor Hrithik Roshan,0.0,12 Bajay - Atif Aslam
+0459,0.0,24,Justin Bieber - Believe (Full HDAudio),0.0,12 Bajay - Atif Aslam
+0455,0.0,72,Justin Bieber - As Long As You Love Me (Acoustic Live Performance),0.0,12 Bajay - Atif Aslam
+0309,0.0,16,Ed Sheeran - Castle On The Hill [Official Video],0.0,12 Bajay - Atif Aslam
+0350,0.0,248,En tus pupilas - Shakira,0.0,12 Bajay - Atif Aslam
+0370,0.0,112,Enrique Iglesias - Takin Back My Love feat Ciara,0.0,12 Bajay - Atif Aslam
+0369,0.0,2,Enrique Iglesias - Somebodys Me,0.0,12 Bajay - Atif Aslam
+0366,0.0,2,Enrique Iglesias - Not In Love ft Kelis,0.0,12 Bajay - Atif Aslam
+0363,0.0,66,Enrique Iglesias - Mentiroso,0.0,12 Bajay - Atif Aslam
+0362,0.0,16,Enrique Iglesias - Love To See You Cry,0.0,12 Bajay - Atif Aslam
+0361,0.0,10,Enrique Iglesias - I Like It,0.0,12 Bajay - Atif Aslam
+0360,0.0,62,Enrique Iglesias - I Like How It Feels ft Pitbull & The WAVs,0.0,12 Bajay - Atif Aslam
+0358,0.0,40,Enrique Iglesias - Heartbeat ft Nicole Scherzinger,0.0,12 Bajay - Atif Aslam
+0357,0.0,10,Enrique Iglesias - Finally Found You ft Sammy Adams,0.0,12 Bajay - Atif Aslam
+0352,0.0,18,Enrique Iglesias - Ayer,0.0,12 Bajay - Atif Aslam
+0351,0.0,8,Enrique Iglesias - Addicted,0.0,12 Bajay - Atif Aslam
+0345,0.0,4,Ed Sheeran covers Little Mixs Touch in the Live Lounge,0.0,12 Bajay - Atif Aslam
+0454,0.0,26,Justin Bieber - All That Matters (Official Video),0.0,12 Bajay - Atif Aslam
+0343,0.0,38,Ed Sheeran - You Need Me I Dont Need You [Official Video],0.0,12 Bajay - Atif Aslam
+0341,0.0,2,Ed Sheeran - Wayfaring Stranger (Live),0.0,12 Bajay - Atif Aslam
+0340,0.0,18,Ed Sheeran - Wake Me Up (Live From The Artists Den),0.0,12 Bajay - Atif Aslam
+0336,0.0,2,Ed Sheeran - The A Team [Official Video],0.0,12 Bajay - Atif Aslam
+0333,0.0,10,Ed Sheeran - Small Bump [Official Video],0.0,12 Bajay - Atif Aslam
+0332,0.0,48,Ed Sheeran - Sing [Official Video],0.0,12 Bajay - Atif Aslam
+0330,0.0,14,Ed Sheeran - Photograph (Official Music Video),0.0,12 Bajay - Atif Aslam
+0328,0.0,36,Ed Sheeran - One [Official Video],0.0,12 Bajay - Atif Aslam
+0318,0.0,18,Ed Sheeran - Happier (Official Video),0.0,12 Bajay - Atif Aslam
+0316,0.0,80,Ed Sheeran - Give Me Love [Official Video],0.0,12 Bajay - Atif Aslam
+0315,0.0,8,Ed Sheeran - Galway Girl [Official Video],0.0,12 Bajay - Atif Aslam
+0371,0.0,32,Enrique Iglesias - Tired Of Being Sorry (MUSIC VIDEO),0.0,12 Bajay - Atif Aslam
+0372,0.0,76,Enrique Iglesias - Turn The Night Up (Fan Version),0.0,12 Bajay - Atif Aslam
+0374,0.0,8,Enrique Iglesias Dont you forget about me,0.0,12 Bajay - Atif Aslam
+0375,0.0,22,Enrique Iglesias Heartbreaker Euphoriawmv,0.0,12 Bajay - Atif Aslam
+0453,0.0,6,Justin Bieber - All Around The World (Ft Ludacris - Full HDAudio),0.0,12 Bajay - Atif Aslam
+0452,0.0,126,Justin Bieber - All Around The World (Acoustic) (Live),0.0,12 Bajay - Atif Aslam
+0449,0.0,2,Jo bhi main Rockstar (Official Video Song) Ranbir Kapoor,0.0,12 Bajay - Atif Aslam
+0444,0.0,14,Jee Lay Har Pal cover By Kh sami,0.0,12 Bajay - Atif Aslam
+0443,0.0,24,Jay-z Bono The Edge & Rihanna  Stranded (Haiti Mon Amour) [CDQ] Donate @ Itunes,0.0,12 Bajay - Atif Aslam
+0431,0.0,2,Jaan - DJ Shadow Dubai Remix  Alee Houston,0.0,12 Bajay - Atif Aslam
+0430,0.0,252,Its Only Love - Bryan Adams & Tina Turner,0.0,12 Bajay - Atif Aslam
+0420,0.0,4,I Fought The Law - Bryan Adams,0.0,12 Bajay - Atif Aslam
+0415,0.0,36,Humrahi by Atif Aslam,0.0,12 Bajay - Atif Aslam
+0414,0.0,2,Humko Humise Chura Lo - Full Song  Mohabbatein  Shah Rukh Khan  Aishwarya Rai  Lata  Uday,0.0,12 Bajay - Atif Aslam
+0411,0.0,54,Hum Yaar Hain Tumhare (Female)  Haan Maine Bhi Pyaar Kiya  Abhishek Bachchan  Karishma Kapoor,0.0,12 Bajay - Atif Aslam
+0403,0.0,1110,Here i go again by Rihanna,0.0,12 Bajay - Atif Aslam
+0399,0.0,38,Hangami Halat - Official Video  Meri Kahani  Atif Aslam  Mahmood Rahman Sameer Shami & Farhad,0.0,12 Bajay - Atif Aslam
+0394,0.0,116,Hai Dil Full Video - Dil Ka Rishta  Arjun Rampal & Aishwarya Rai  Alka Yagnik & Kumar Sanu,0.0,12 Bajay - Atif Aslam
+0390,0.0,8,Gumshuda (Full Song) Film - Chalte Chalte,0.0,12 Bajay - Atif Aslam
+0389,0.0,22,Gulabi Aankhen  Remix  DJ Shadow Dubai & Atif Aslam,0.0,12 Bajay - Atif Aslam
+0388,0.0,8,Gul Panrra & Atif Aslam Man Aamadeh Am Coke Studio Season 8 Episode 3,0.0,12 Bajay - Atif Aslam
+0383,0.0,6,GAGE ft Akon - Be Easy,0.0,12 Bajay - Atif Aslam
+0381,0.0,20,FrUmS - Fearless by Bryan Adams (drums cover)mp4,0.0,12 Bajay - Atif Aslam
+0379,0.0,2,Enrique Iglesias-I have always loved you,0.0,12 Bajay - Atif Aslam
+0378,0.0,6,Enrique Iglesias Usher - Dirty Dancer ft Lil Wayne,0.0,12 Bajay - Atif Aslam
+0377,0.0,16,Enrique Iglesias She be the one (Watch Out Here She Comes),0.0,12 Bajay - Atif Aslam
+0376,0.0,16,Enrique Iglesias Juan Luis Guerra - Cuando Me Enamoro,0.0,12 Bajay - Atif Aslam
+1040,0.0,14,rihanna - Boom Boom,0.0,12 Bajay - Atif Aslam
