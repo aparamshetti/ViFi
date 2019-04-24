@@ -29,9 +29,6 @@ _testing_obj=TestClass(inp_path=base_data_url+'/completed_videos/',
                        out_path=base_data_url+'/sliced_videos_testing/',
                        snap_out_path=base_data_url+'/sliced_video_snapshots/')
 
-
-
-
 app= Flask(__name__)
 api = Api(app)
 CORS(app)
@@ -82,14 +79,14 @@ def run_test(file_name):
     file_path=base_data_url+'/'+'test_answers/'+file_name.replace('.mp4','.csv')
     print("Opening the new frame ", file_path)
     with open(file_path,'r') as f:
-        out_frame=pd.from_csv(f)
+        out_frame=pd.read_csv(f)
     print("Output frame is ",out_frame)
           
 def post_results(file_name):
     print("Posting the Results ")
     file_path=base_data_url+'/'+'test_answers/'+file_name.replace('.mp4','.csv')
     with open(file_path,'r') as f:
-        out_frame=pd.from_csv(f)    
+        out_frame=pd.read_csv(f)    
 
 if __name__ == '__main__':
     
