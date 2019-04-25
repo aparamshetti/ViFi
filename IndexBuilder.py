@@ -106,7 +106,8 @@ class IndexBuilder:
             json.dump(dict(merged_inverted_index), f)
     
     def _build_multiple_indexes(self):
-        video_directories = os.listdir(self._input_dir)
+        video_directories = [f for f in os.listdir(self._input_dir)
+                             if os.path.isdir(os.path.join(self._input_dir, f))]
         resource_path = path.join(self._resource_dir, "dictionaries")
         if not os.path.isdir(resource_path):
             os.mkdir(resource_path)

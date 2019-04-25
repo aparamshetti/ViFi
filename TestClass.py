@@ -238,7 +238,8 @@ class TestClass:
         return master, video_dict
     
     def run_local(self):
-        test_files = os.listdir(self.test_snap_out_path)
+        test_files = [f for f in os.listdir(self.test_snap_out_path)
+                      if os.path.isdir(os.path.join(self.test_snap_out_path, f))]
     
         all_results = []
         actuals = []
@@ -269,11 +270,6 @@ class TestClass:
             if len(all_results[ind]) > 0:
                 df = pd.DataFrame(all_results[ind], columns=["video_id", "cosine"]).fillna(0)
                 df_new = df.groupby("video_id")["cosine"].agg(['mean', 'count']).reset_index()
-#<<<<<<< HEAD
-                #for i in range(df_new.shape[0]):
-                #    df_new.ix[i, "prediction"] = self._video_dict[df_new.ix[i, "video_id"]]
-                 #   df_new.ix[i, "score"] = df_new.ix[i, "mean"] * (df_new.ix[i, "count"])
-#=======
                 
                 for i in range(df_new.shape[0]):
                     df_new.ix[i,"prediction"] = self._video_dict[df_new.ix[i,"video_id"]]
@@ -344,7 +340,6 @@ class TestClass:
         else:
             df = self.run_local()
             print(df.head())
-            df.to_csv('resources/test_results.csv', index=False)
 
         return df
     
